@@ -1,0 +1,10 @@
+.leftMenu {
+    width: calc(20% - 40px);
+    height: calc(100vh - 280px);
+    background: bisque;
+    padding: 20px;
+}
+
+ul {
+    list-style: none;
+}
