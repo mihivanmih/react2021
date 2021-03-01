@@ -1,0 +1,27 @@
+.leftMenu {
+    width: calc(20% - 40px);
+    height: calc(100vh - 280px);
+    background: bisque;
+    padding: 20px;
+}
+
+ul {
+    list-style: none;
+}
+
+ul li a {
+    color: #000;
+    text-decoration: none;
+}
+ul li .active {
+    color: #b91e99;
+}
+
+ul li a:hover {
+    color: #000;
+    text-decoration: underline;
+}
+
+.item {
+    color: darkorange;
+}

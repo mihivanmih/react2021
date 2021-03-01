@@ -1,22 +1,25 @@
-import logo from './logo.svg';
 import './App.css';
 import {Header} from "./components/header/header";
-import {TimeStudy} from "./components/timeStudy/timeStudy";
 import {Footer} from "./components/footer/footer";
 import {LeftMenu} from "./components/leftMenu/leftMenu";
 import {Profile} from "./components/profile/profile";
+import {Dialogs} from "./components/dialogs/dialogs";
+import {BrowserRouter, Route} from "react-router-dom";
 
 const App = () => {
   return (
-    <div className="App">
-        <Header />
-        <LeftMenu />
-        <div className="content">
-            <TimeStudy />
-            <Profile />
+    <BrowserRouter>
+        <div className="App">
+            <Header />
+            <LeftMenu />
+            <div className="content">
+                <Route exact path="/" component={Profile} />
+                <Route path="/profile" component={Profile} />
+                <Route path="/messages" component={Dialogs} />
+            </div>
+            <Footer />
         </div>
-        <Footer />
-    </div>
+    </BrowserRouter>
   );
 }
 
