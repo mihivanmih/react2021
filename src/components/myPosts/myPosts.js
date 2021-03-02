@@ -1,24 +1,32 @@
+import React from 'react';
 import './myPosts.css'
 import {Post} from "./Post/Post";
+import {Profile} from "../profile/profile";
 
-export const Posts = () => {
+export const Posts = (props) => {
 
-    let postsData = [
-        {id: 1, message: 'Как дела?', like: 5},
-        {id: 2, message: 'Чем занят?', like: 15},
-        {id: 3, message: 'Займи 5000?', like: 2},
-        {id: 4, message: 'Отдам через неделю', like: 0},
-    ]
+    console.log(props)
 
-    let newPostsData = postsData.map(post =>(<Post message={post.message} like={post.like} />))
+    let newPostsData = props.postsData.posts.map(post =>(<Post message={post.message} like={post.like} />))
+    let newPostElement = React.createRef();
+
+
+    let alerHi = () => {
+        props.addPost();
+    }
+
+    let onPOstChange = () => {
+        let text =  newPostElement.current.value;
+        props.updateNewPostText(text)
+    }
 
     return (
         <div>
             Мои посты
 
             <div>Новый пост</div>
-            <textarea name="" id="" cols="30" rows="10"></textarea>
-            <button>Отправить</button>
+            <textarea onChange={onPOstChange} value={props.postsData.newPostText} ref={newPostElement} cols="30" rows="10" />
+            <button onClick={ alerHi }>Отправить</button>
             {newPostsData}
         </div>
     );

@@ -1,37 +1,19 @@
+import React from 'react';
 import style from './dialogs.module.css'
-import {NavLink} from "react-router-dom";
-
-const DialogItem = (props) => {
-    return (
-        <div className="item">
-            <NavLink to={"/messages/" + props.id } activeClassName={style.active}>{props.name}</NavLink>
-        </div>
-    )
-}
-
-const Message = (props) => {
-    return (
-        <div className="message">{props.message}</div>
-    )
-}
+import {DialogItem} from "./Dialogitem/dialogitem";
+import {Message} from "./Message/message";
 
 export const Dialogs = (props) => {
 
-    let dialogsData = [
-        {id: 1, name: 'Маша'},
-        {id: 2, name: 'Антон'},
-        {id: 3, name: 'Ванька'},
-        {id: 4, name: 'Танька'},
-    ]
+    let newDialogData = props.state.dialogs.map(dialog => (<DialogItem name={dialog.name} id={dialog.id}/>))
+    let newMessangesData = props.state.messages.map(dialog => (<Message message={dialog.message} />))
 
-    let newDialogData = dialogsData.map(dialog => (<DialogItem name={dialog.name} id={dialog.id}/>))
+    let textAriaRef = React.useRef();
 
-    let messangesData = [
-        {id: 1, message: 'Привет'},
-        {id: 2, message: 'Завтра едем смотреть динозавров'},
-        {id: 3, message: 'В эко парк'},
-    ]
-    let newMessangesData = messangesData.map(dialog => (<Message message={dialog.message} />))
+    let addMessage = () => {
+        let text = textAriaRef.current.value;
+        alert (text);
+    }
 
     return (
         <div className={style.content}>
@@ -44,6 +26,9 @@ export const Dialogs = (props) => {
 
                 <div className={style.messanges} >
                     {newMessangesData}
+
+                    <textarea name="" ref={textAriaRef} id="" cols="30" rows="10"></textarea>
+                    <button onClick={ addMessage }>Отправить</button>
                 </div>
 
             </div>

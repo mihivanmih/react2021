@@ -1,10 +1,24 @@
+import {NavLink} from "react-router-dom";
+import style from "../dialogs/dialogs.module.css";
+
+export const VisibleTime = (props) => {
+    return (
+        <div className="item">
+            {props.dateState} - {props.timeState}
+        </div>
+    )
+}
+
 export const TimeStudy = () => {
+
     let arrTime = [
-        [
-            ['28.02.2021','02:50:00'],
-            ['01.03.2021','02:38:14'],
-        ]
+        {'date': '28.02.2021', 'time': '02:50:00'},
+        {'date': '01.03.2021', 'time': '03:45:38'},
+        {'date': '02.03.2021', 'time': '03:15:05'},
     ]
+
+    let arrTimeVisible = arrTime.map( item => (<VisibleTime dateState={item.date} timeState={item.time} />));
+
 
     function SEcondTime(str) {
         let massTime = str.split(':');
@@ -20,8 +34,8 @@ export const TimeStudy = () => {
     let col = 0;
     let time = "";
     let allTime = "";
-    while(col<2) {
-        time = SEcondTime(arrTime[0][col][1]);
+    while(col<3) {
+        time = SEcondTime(arrTime[col].time);
         allTime = Number(time) + Number(allTime);
         col++;
     }
@@ -37,15 +51,12 @@ export const TimeStudy = () => {
 
     let TimeDay = days+" дней, 0"+hrs+":"+mnts+":"+seconds;
 
-    //console.log(days+" days, "+hrs+" Hrs, "+mnts+" Minutes, "+seconds+" Seconds");
-
-
-
     return (
         <div>
             Время учебы: <br/>
-            28.02.2021 - {arrTime[0][0][1]} <br/>
-            01.03.2021 - {arrTime[0][1][1]} <br/>
+
+            {arrTimeVisible}
+
 
             Полное время: {TimeDay}
         </div>

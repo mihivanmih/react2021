@@ -2,7 +2,7 @@ import style from './profile.module.css'
 import {TimeStudy} from "../timeStudy/timeStudy";
 import {Posts} from "../myPosts/myPosts";
 
-export const Profile = () => {
+export const Profile = (props) => {
     return (
         <div>
 
@@ -16,7 +16,7 @@ export const Profile = () => {
 
                  Мой профиль <br/><br/>
 
-                 <Posts />
+                 <Posts postsData={props.state}  addPost={props.addPost} updateNewPostText={props.updateNewPostText} />
 
 
 
