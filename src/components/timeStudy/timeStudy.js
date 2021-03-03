@@ -15,6 +15,7 @@ export const TimeStudy = () => {
         {'date': '28.02.2021', 'time': '02:50:00'},
         {'date': '01.03.2021', 'time': '03:45:38'},
         {'date': '02.03.2021', 'time': '03:15:05'},
+        {'date': '03.03.2021', 'time': '02:38:00'},
     ]
 
     let arrTimeVisible = arrTime.map( item => (<VisibleTime dateState={item.date} timeState={item.time} />));
@@ -34,7 +35,7 @@ export const TimeStudy = () => {
     let col = 0;
     let time = "";
     let allTime = "";
-    while(col<3) {
+    while(col<4) {
         time = SEcondTime(arrTime[col].time);
         allTime = Number(time) + Number(allTime);
         col++;
@@ -49,7 +50,7 @@ export const TimeStudy = () => {
     let mnts = Math.floor(seconds / 60);
     seconds  -= mnts*60;
 
-    let TimeDay = days+" дней, 0"+hrs+":"+mnts+":"+seconds;
+    let TimeDay = days+" дней, "+hrs+":"+mnts+":"+seconds;
 
     return (
         <div>

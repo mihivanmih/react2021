@@ -7,15 +7,16 @@ import {Dialogs} from "./components/dialogs/dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
 
 const App = (props) => {
+
   return (
     <BrowserRouter>
         <div className="App">
             <Header />
             <LeftMenu />
             <div className="content">
-                <Route exact path="/" render={ () => <Profile state={props.state.profilePage} addPost={props.addPost}  updateNewPostText={props.updateNewPostText} />} />
-                <Route path="/profile" render={ () => <Profile state={props.state.profilePage} addPost={props.addPost} updateNewPostText={props.updateNewPostText} />} />
-                <Route path="/messages" render={ () => <Dialogs state={props.state.messagesPage}  />} />
+                <Route exact path="/" render={ () => <Profile store={props.store} dispatch={props.dispatch}/>} />
+                <Route path="/profile" render={ () => <Profile store={props.store} dispatch={props.dispatch} />} />
+                <Route path="/messages" render={ () => <Dialogs state={props.store.getState().messagesPage}dispatch={props.dispatch} />} />
             </div>
             <Footer />
         </div>

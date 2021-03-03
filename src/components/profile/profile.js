@@ -3,6 +3,7 @@ import {TimeStudy} from "../timeStudy/timeStudy";
 import {Posts} from "../myPosts/myPosts";
 
 export const Profile = (props) => {
+
     return (
         <div>
 
@@ -16,7 +17,7 @@ export const Profile = (props) => {
 
                  Мой профиль <br/><br/>
 
-                 <Posts postsData={props.state}  addPost={props.addPost} updateNewPostText={props.updateNewPostText} />
+                 <Posts store={props.store} dispatch={props.dispatch}  />
 
 
 
