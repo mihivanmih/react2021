@@ -10,7 +10,6 @@ import {DialogsConteiner} from "./components/dialogs/dialogsContainer";
 const App = (props) => {
 
 
-
   return (
     <BrowserRouter>
         <div className="App">

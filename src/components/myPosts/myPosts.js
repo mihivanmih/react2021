@@ -9,7 +9,7 @@ export const Posts = (props) => {
 
 
 
-    let newPostsData = props.posts.map(post =>(<Post message={post.message} like={post.like} />))
+    let newPostsData = props.posts.map(post =>(<Post message={post.message} key={post.id} like={post.like} />))
     let newPostElement = React.createRef();
 
 

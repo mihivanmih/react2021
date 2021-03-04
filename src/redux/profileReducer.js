@@ -24,12 +24,16 @@ export const profileReducer = (state = initialStatedsasad, action) => {
                 message: state.newPostText,
                 like: getRandomInt(0, 120),
             }
-            state.posts.push(newPost);
-            state.newPostText = "";
-            return state;
+            return {
+                ...state,
+                newPostText: "",
+                posts: [...state.posts, newPost]
+            }
         case UPDATE_NEW_POST_TEXT:
-            state.newPostText = action.newText;
-            return state;
+            return {
+                ...state,
+                newPostText: action.newText
+            }
         default:
             return state;
     }

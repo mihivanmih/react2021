@@ -9,8 +9,8 @@ import {
 
 export const Dialogs = (props) => {
 
-    let newDialogData = props.dialogs.map(dialog => (<DialogItem name={dialog.name} id={dialog.id}/>))
-    let newMessangesData = props.messages.map(dialog => (<Message message={dialog.message} />))
+    let newDialogData = props.dialogs.map(dialog => (<DialogItem key={dialog.id} name={dialog.name} id={dialog.id}/>))
+    let newMessangesData = props.messages.map(dialog => (<Message key={dialog.id} message={dialog.message} />))
 
 
 
