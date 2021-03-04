@@ -15,7 +15,8 @@ export const TimeStudy = () => {
         {'date': '28.02.2021', 'time': '02:50:00'},
         {'date': '01.03.2021', 'time': '03:45:38'},
         {'date': '02.03.2021', 'time': '03:15:05'},
-        {'date': '03.03.2021', 'time': '02:38:00'},
+        {'date': '03.03.2021', 'time': '06:26:28'},
+        {'date': '03.03.2021', 'time': '00:30:20'},
     ]
 
     let arrTimeVisible = arrTime.map( item => (<VisibleTime dateState={item.date} timeState={item.time} />));

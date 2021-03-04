@@ -2,24 +2,24 @@ import React from 'react';
 import './myPosts.css'
 import {Post} from "./Post/Post";
 import {Profile} from "../profile/profile";
-import {addPostActionCreator, updateNewPostTextActionCreator} from "../../redux/state";
+import {addPostActionCreator, profileReducer, updateNewPostTextActionCreator} from "../../redux/profileReducer";
 
 
 export const Posts = (props) => {
 
-    let newPostsData = props.store.getState().profilePage.posts.map(post =>(<Post message={post.message} like={post.like} />))
+
+
+    let newPostsData = props.posts.map(post =>(<Post message={post.message} like={post.like} />))
     let newPostElement = React.createRef();
 
 
-    let alerHi = () => {
-        let action = addPostActionCreator();
-        props.dispatch(action);
+    let onPostAdd = () => {
+        props.addPost();
     }
 
     let onPOstChange = () => {
         let text =  newPostElement.current.value;
-        let action = updateNewPostTextActionCreator(text);
-        props.dispatch(action);
+        props.updatePost(text);
     }
 
     return (
@@ -27,8 +27,8 @@ export const Posts = (props) => {
             Мои посты
 
             <div>Новый пост</div>
-            <textarea onChange={onPOstChange} value={props.store.getState().profilePage.newPostText} ref={newPostElement} cols="30" rows="10" />
-            <button onClick={ alerHi }>Отправить</button>
+            <textarea onChange={onPOstChange} value={props.newPostText} ref={newPostElement} cols="30" rows="10" />
+            <button onClick={ onPostAdd }>Отправить</button>
             {newPostsData}
         </div>
     );

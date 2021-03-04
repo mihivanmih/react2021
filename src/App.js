@@ -5,8 +5,11 @@ import {LeftMenu} from "./components/leftMenu/leftMenu";
 import {Profile} from "./components/profile/profile";
 import {Dialogs} from "./components/dialogs/dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
+import {DialogsConteiner} from "./components/dialogs/dialogsContainer";
 
 const App = (props) => {
+
+
 
   return (
     <BrowserRouter>
@@ -14,9 +17,9 @@ const App = (props) => {
             <Header />
             <LeftMenu />
             <div className="content">
-                <Route exact path="/" render={ () => <Profile store={props.store} dispatch={props.dispatch}/>} />
-                <Route path="/profile" render={ () => <Profile store={props.store} dispatch={props.dispatch} />} />
-                <Route path="/messages" render={ () => <Dialogs state={props.store.getState().messagesPage}dispatch={props.dispatch} />} />
+                <Route exact path="/" render={ () => <Profile />} />
+                <Route path="/profile" render={ () => <Profile />} />
+                <Route path="/messages" render={ () => <DialogsConteiner />} />
             </div>
             <Footer />
         </div>

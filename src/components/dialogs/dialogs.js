@@ -3,28 +3,26 @@ import style from './dialogs.module.css'
 import {DialogItem} from "./Dialogitem/dialogitem";
 import {Message} from "./Message/message";
 import {
-    addMessageActionCreator,
+    addMessageActionCreator, messageReducer,
     updateNewMessageTextActionCreator,
-} from "../../redux/state";
+} from "../../redux/messagesReduser";
 
 export const Dialogs = (props) => {
 
-    console.log(props)
+    let newDialogData = props.dialogs.map(dialog => (<DialogItem name={dialog.name} id={dialog.id}/>))
+    let newMessangesData = props.messages.map(dialog => (<Message message={dialog.message} />))
 
-    let newDialogData = props.state.dialogs.map(dialog => (<DialogItem name={dialog.name} id={dialog.id}/>))
-    let newMessangesData = props.state.messages.map(dialog => (<Message message={dialog.message} />))
+
 
     let textAriaRef = React.useRef();
 
     let addMessage = () => {
-        let action = addMessageActionCreator();
-        props.dispatch(action);
+        props.addMessage();
     }
 
     let onPOstChange = () => {
         let text =  textAriaRef.current.value;
-        let action = updateNewMessageTextActionCreator(text);
-        props.dispatch(action);
+        props.updateMessage(text);
     }
 
     return (
@@ -39,7 +37,7 @@ export const Dialogs = (props) => {
                 <div className={style.messanges} >
                     {newMessangesData}
 
-                    <textarea  onChange={onPOstChange} value={props.state.newPostText}  name="" ref={textAriaRef} id="" cols="30" rows="10"></textarea>
+                    <textarea onChange={onPOstChange} value={props.newPostText}  name="" ref={textAriaRef} id="" cols="30" rows="10"></textarea>
                     <button onClick={ addMessage }>Отправить</button>
                 </div>
 

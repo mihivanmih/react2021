@@ -1,6 +1,7 @@
 import style from './profile.module.css'
 import {TimeStudy} from "../timeStudy/timeStudy";
 import {Posts} from "../myPosts/myPosts";
+import {MyPostsContainer} from "../myPosts/myPostsContainer";
 
 export const Profile = (props) => {
 
@@ -17,7 +18,7 @@ export const Profile = (props) => {
 
                  Мой профиль <br/><br/>
 
-                 <Posts store={props.store} dispatch={props.dispatch}  />
+                 <MyPostsContainer />
 
 
 
