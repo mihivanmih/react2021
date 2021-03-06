@@ -1,43 +1,46 @@
 import React from 'react'
-import {followAC, unfollowAC} from "../../redux/userReducer";
-import * as axios from 'axios'
-import style from './users.module.css'
+import style from "./users.module.css";
 
-export const Users = (props) => {
+let Users = (props) => {
 
-    let getUsers = () => {
-
-        if(props.users.length === 0) {
-            axios.get('https://social-network.samuraijs.com/api/1.0/users?count=5').then(response => {
-                props.setUsers(response.data.items)
-            })
-        }
-
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
+    console.log(pagesCount)
+    let pages = []
+    for (let i=1; i<= pagesCount; i++ ){
+        if(i>20) break;
+        pages.push(i)
     }
 
-    return(
+    return (
         <div>
             Пользователи: <br/><br/>
+            <div className={style.pagination}>
 
-            <button onClick={getUsers}>getUsers</button>
-
+                {
+                    pages.map(pag => {
+                        return <span onClick={ (e) => { props.onPageClick(pag)}  } className={props.currentPage === pag && style.bold}>{pag}</span>
+                    })
+                }
+            </div>
+            <div>Всего страниц: { pagesCount }</div>
             {
                 props.users.map(user => <div key={user.id}>
-                    <div>
-                        { user.followed ? <button onClick={ () => { props.unfollow(user.id)} } > UnFollow </button> : <button onClick={ () => { props.follow(user.id)} }> Follow </button>}
-                    </div>
-                    <div>
-                        <div>{user.photos.small === null ? <img src="/images/avanone.webp" alt=""/> : <img src={user.photos.small} alt=""/>}</div>
-                        <div>{user.name}</div>
-                        <div>{user.status}</div>
-                        {/*<div>{user.location.city}</div>
+                        <div>
+                            { user.followed ? <button onClick={ () => { props.unfollow(user.id)} } > UnFollow </button> : <button onClick={ () => { props.follow(user.id)} }> Follow </button>}
+                        </div>
+                        <div>
+                            <div className={style.avatar}>{user.photos.small === null ? <img src="/images/avanone.webp" alt=""/> : <img src={user.photos.small} alt=""/>}</div>
+                            <div>{user.name}</div>
+                            <div>{user.status}</div>
+                            {/*<div>{user.location.city}</div>
                         <div>{user.location.country}</div>*/}
+                        </div>
                     </div>
-                </div>
-                    )
+                )
             }
 
         </div>
     )
 }
 
+export default Users;

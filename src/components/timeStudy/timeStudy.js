@@ -17,7 +17,8 @@ export const TimeStudy = () => {
         {id: '2', 'date': '02.03.2021', 'time': '03:15:05', 'study': 'React 35 урок'},
         {id: '3', 'date': '03.03.2021', 'time': '06:26:28', 'study': 'React 40 урок'},
         {id: '4', 'date': '04.03.2021', 'time': '05:48:10', 'study': 'React 49 урок'},
-        {id: '5', 'date': '05.03.2021', 'time': '00:55:10', 'study': 'React 52 урок'},
+        {id: '5', 'date': '05.03.2021', 'time': '03:02:08', 'study': 'React 55 урок'},
+        {id: '6', 'date': '06.03.2021', 'time': '00:00:08', 'study': 'React 55 урок'},
     ]
 
     let arrTimeVisible = arrTime.map( item => (<VisibleTime dateState={item.date} key={item.id} timeState={item.time} study={item.study} />));
@@ -52,9 +53,8 @@ export const TimeStudy = () => {
     let mnts = Math.floor(seconds / 60);
     seconds  -= mnts*60;
 
-    if(String(mnts).length==1){
-        mnts = "0" + mnts
-    }
+    if(String(mnts).length==1){mnts = "0" + mnts }
+    if(String(hrs).length==1){hrs = "0" + hrs }
 
     let TimeDay = days+" дней, "+hrs+":"+mnts+":"+seconds;
 

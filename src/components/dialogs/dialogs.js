@@ -16,9 +16,7 @@ export const Dialogs = (props) => {
 
     let textAriaRef = React.useRef();
 
-    let addMessage = () => {
-        props.addMessage();
-    }
+
 
     let onPOstChange = () => {
         let text =  textAriaRef.current.value;
@@ -38,7 +36,7 @@ export const Dialogs = (props) => {
                     {newMessangesData}
 
                     <textarea onChange={onPOstChange} value={props.newPostText}  name="" ref={textAriaRef} id="" cols="30" rows="10"></textarea>
-                    <button onClick={ addMessage }>Отправить</button>
+                    <button onClick={ () => props.addMessage() }>Отправить</button>
                 </div>
 
             </div>

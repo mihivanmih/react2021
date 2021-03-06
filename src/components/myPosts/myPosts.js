@@ -13,9 +13,11 @@ export const Posts = (props) => {
     let newPostElement = React.createRef();
 
 
+/*
     let onPostAdd = () => {
         props.addPost();
     }
+*/
 
     let onPOstChange = () => {
         let text =  newPostElement.current.value;
@@ -27,8 +29,9 @@ export const Posts = (props) => {
             Мои посты
 
             <div>Новый пост</div>
+            {/*<textarea onChange={onPOstChange} value={props.newPostText} ref={newPostElement} cols="30" rows="10" />*/}
             <textarea onChange={onPOstChange} value={props.newPostText} ref={newPostElement} cols="30" rows="10" />
-            <button onClick={ onPostAdd }>Отправить</button>
+            <button onClick={ () => props.addPost() }>Отправить</button>
             {newPostsData}
         </div>
     );
