@@ -3,10 +3,14 @@ import './myPosts.css'
 import {Post} from "./Post/Post";
 import {Profile} from "../profile/profile";
 import {addPostActionCreator, profileReducer, updateNewPostTextActionCreator} from "../../redux/profileReducer";
+import Preloader from "../Preloader/preloader";
 
 
 export const Posts = (props) => {
 
+    if(!props.profile){
+        return <Preloader />
+    }
 
 
     let newPostsData = props.posts.map(post =>(<Post message={post.message} key={post.id} like={post.like} />))
@@ -24,10 +28,21 @@ export const Posts = (props) => {
         props.updatePost(text);
     }
 
+
+
     return (
         <div>
-            Мои посты
+            Мои посты <br/><br/>
 
+            Аватар <br />
+            <img src={props.profile.photos.large} alt=""/><br />
+            Имя: {props.profile.fullName}<br />
+            Обо мне:  {props.profile.aboutMe}<br />
+            Ищет работу: {props.profile.lookingForAJob ? <span>Да</span> :  <span>Нет</span>} <br/>
+            О работе: {props.profile.lookingForAJobDescription} <br/>
+            Контакты: {props.profile.contacts.vk}
+
+            <br /><br /><br />
             <div>Новый пост</div>
             {/*<textarea onChange={onPOstChange} value={props.newPostText} ref={newPostElement} cols="30" rows="10" />*/}
             <textarea onChange={onPOstChange} value={props.newPostText} ref={newPostElement} cols="30" rows="10" />

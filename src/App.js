@@ -7,6 +7,8 @@ import {Dialogs} from "./components/dialogs/dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
 import {DialogsConteiner} from "./components/dialogs/dialogsContainer";
 import {UsersContainer} from "./components/users/usersContainer";
+import ProfileContainer from "./components/profile/profileContainer";
+import HeaderContainer from "./components/header/headerContainer";
 
 const App = (props) => {
 
@@ -14,11 +16,11 @@ const App = (props) => {
   return (
     <BrowserRouter>
         <div className="App">
-            <Header />
+            <HeaderContainer />
             <LeftMenu />
             <div className="content">
-                <Route exact path="/" render={ () => <Profile />} />
-                <Route path="/profile" render={ () => <Profile />} />
+                <Route exact path="/" render={ () => <ProfileContainer />} />
+                <Route path="/profile/:userId?" render={ () => <ProfileContainer />} />
                 <Route path="/messages" render={ () => <DialogsConteiner />} />
                 <Route path="/users" render={ () => <UsersContainer />} />
             </div>

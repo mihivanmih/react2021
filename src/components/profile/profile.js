@@ -18,7 +18,7 @@ export const Profile = (props) => {
 
                  Мой профиль <br/><br/>
 
-                 <MyPostsContainer />
+                 <MyPostsContainer profile={props.profile}/>
 
             </div>
 

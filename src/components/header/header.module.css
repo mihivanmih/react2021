@@ -6,4 +6,11 @@ header {
 
 .logo {
     max-width: 100px;
+    padding-left: 20px;
+}
+
+.loginBlock {
+    float: right;
+    padding-right: 20px;
+    padding-top: 35px;
 }
