@@ -1,5 +1,8 @@
+import {userApi} from "../api/api";
+
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
+const TOOGLE_FOLLOWIN_PROGRESS = 'TOOGLE_FOLLOWIN_PROGRESS'
 const SET_USERS = 'SET_USERS'
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 const SET_USER_COUNT = 'SET_USER_COUNT'
@@ -8,10 +11,11 @@ const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
 
 let initialState = {
     users: [ ],
-    pageSize: 100,
+    pageSize: 10,
     totalUsersCount: 0,
     currentPage: 1,
-    isFetching: true
+    isFetching: true,
+    followingInProgress: [],
 }
 
 export const usersReducer = (state = initialState, action) => {
@@ -45,6 +49,15 @@ export const usersReducer = (state = initialState, action) => {
                     return user
                 })
             }
+        case TOOGLE_FOLLOWIN_PROGRESS:
+            return {
+                ...state,
+                followingInProgress: action.followingInProgress
+                    ? [ ...state.followingInProgress, action.userId  ]
+                    : [ ...state.followingInProgress.filter(id => id != action.userId) ]
+
+
+            }
         default:
             return state;
     }
@@ -53,7 +66,43 @@ export const usersReducer = (state = initialState, action) => {
 
 export const follow = (userId) => ({   type: FOLLOW, userId })
 export const unfollow = (userId) => ({ type: UNFOLLOW, userId })
+export const toogleFollowingInProgress = (followingInProgress, userId) => ({ type: TOOGLE_FOLLOWIN_PROGRESS, followingInProgress, userId })
 export const setUsers = (users) => ({ type: SET_USERS, users })
 export const currentPageClick = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage })
 export const setTotalUserCOunt = (countUsers) => ({ type: SET_USER_COUNT, countUsers })
 export const setIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetching })
+
+export const getUsersThunk = (pageSize, currentPage) => (dispatch) => {
+    dispatch(setIsFetching(true));
+
+
+    userApi.getUsersApi(pageSize, currentPage).then(data => {
+        dispatch(currentPageClick(currentPage))
+        dispatch(setUsers(data.items))
+        dispatch(setTotalUserCOunt(data.totalCount))
+        dispatch(setIsFetching(false));
+    })
+}
+
+export const postUsersThunk = (id) => (dispatch) => {
+    dispatch(toogleFollowingInProgress(true, id))
+    userApi.postUser(id).then(data => {
+        if(data.resultCode === 0){
+            dispatch(follow(id))
+        }
+        dispatch(toogleFollowingInProgress(false, id))
+    })
+}
+
+export const deleteUsersThunk = (id) => (dispatch) => {
+    dispatch(toogleFollowingInProgress(true, id))
+    userApi.deleteUser(id).then(data => {
+        if(data.resultCode === 0){
+            dispatch(unfollow(id))
+        }
+        dispatch(toogleFollowingInProgress(false, id))
+    })
+}
+
+
+

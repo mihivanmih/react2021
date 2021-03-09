@@ -11,6 +11,7 @@ import {Dialogs} from "./dialogs";
 import StoreContext from "../../StoreContext";
 import {addPostActionCreator, updateNewPostTextActionCreator} from "../../redux/profileReducer";
 import {connect} from "react-redux";
+import {authReduser} from "../../redux/authReducer";
 
 
 
@@ -18,7 +19,8 @@ let mapStateToProps = (state) => {
     return {
         dialogs: state.messageReducer.dialogs,
         messages: state.messageReducer.messages,
-        newPostText: state.messageReducer.newPostText
+        newPostText: state.messageReducer.newPostText,
+        isAuth: state.authReduser.isAuth
     }
 }
 

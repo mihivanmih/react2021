@@ -6,6 +6,7 @@ import {
     addMessageActionCreator, messageReducer,
     updateNewMessageTextActionCreator,
 } from "../../redux/messagesReduser";
+import {Redirect} from "react-router-dom";
 
 export const Dialogs = (props) => {
 
@@ -16,7 +17,7 @@ export const Dialogs = (props) => {
 
     let textAriaRef = React.useRef();
 
-
+    if(!props.isAuth) return <Redirect to='/login' />
 
     let onPOstChange = () => {
         let text =  textAriaRef.current.value;

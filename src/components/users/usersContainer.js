@@ -1,63 +1,56 @@
 import React from "react"
 import {connect} from "react-redux";
 import {
-    currentPageClick,
-    follow,
-    setIsFetching,
-    setTotalUserCOunt,
-    setUsers,
+    deleteUsersThunk,
+    follow, getUsersThunk, postUsersThunk,
+    toogleFollowingInProgress,
     unfollow,
 } from "../../redux/userReducer";
-import * as axios from "axios";
 import Users from "./users";
 import style from "./users.module.css";
 import Preloader from "../Preloader/preloader";
 
 let  mapStateToProps = (state) => {
+
     return {
         users: state.usersReducer.users,
         pageSize: state.usersReducer.pageSize,
         totalUsersCount: state.usersReducer.totalUsersCount,
         currentPage: state.usersReducer.currentPage,
-        isFetching: state.usersReducer.isFetching
+        isFetching: state.usersReducer.isFetching,
+        followingInProgress: state.usersReducer.followingInProgress
     }
 }
-
-/*
-let mapDispatchToProps = (dispatch) => {
-    return {
-        follow: followAC,
-        unfollow: unfollowAC,
-        setUsers: setUsersAC,
-        currentPageClick: setCurrentPageAC,
-        setTotalUserCOunt: setUserCountAC,
-        setIsFetching: setIsFetchingAC
-    }
-}*/
 
 class UserContainer extends React.Component {
 
     componentDidMount() {
+        //this.props.getUsersThunk() //так пересылаются все пропсы
+        this.props.getUsersThunk(this.props.pageSize, this.props.currentPage)
+    }
+/*
+    componentDidMount() {
         this.props.setIsFetching(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`, {
-            withCredentials: true
-        }).then(response => {
-            this.props.setUsers(response.data.items)
-            this.props.setTotalUserCOunt(response.data.totalCount)
+
+        userApi.getUsersApi(this.props.pageSize, this.props.currentPage).then(data => {
+            this.props.setUsers(data.items)
+            this.props.setTotalUserCOunt(data.totalCount)
             this.props.setIsFetching(false);
         })
     }
+*/
 
     onPageClick = (pageNumber) => {
-        this.props.setIsFetching(true);
+        this.props.getUsersThunk(this.props.pageSize, pageNumber)
+
+/*        this.props.setIsFetching(true);
         this.props.currentPageClick(pageNumber)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${pageNumber}`, {
-            withCredentials: true
-        }).then(response => {
-            this.props.setUsers(response.data.items)
+        userApi.getUsersApi(this.props.pageSize, pageNumber).then(data => {
+            this.props.setUsers(data.items)
             this.props.setIsFetching(false);
-        })
+        })*/
     }
+
 
     render() {
         return  <>
@@ -71,7 +64,12 @@ class UserContainer extends React.Component {
                 onPageClick={this.onPageClick}
                 users={this.props.users}
                 follow={this.props.follow}
+                postUsersThunk={this.props.postUsersThunk}
+                postDeleteUsersThunk={this.props.postDeleteUsersThunk}
+                deleteUsersThunk={this.props.deleteUsersThunk}
                 unfollow={this.props.unfollow}
+                followingInProgress={this.props.followingInProgress}
+                toogleFollowingInProgress={this.props.toogleFollowingInProgress}
             />
         </>
     }
@@ -80,7 +78,8 @@ class UserContainer extends React.Component {
 export const UsersContainer = connect(mapStateToProps, {
     follow,
     unfollow,
-    setUsers,
-    currentPageClick,
-    setTotalUserCOunt,
-    setIsFetching})(UserContainer);
+    toogleFollowingInProgress,
+    getUsersThunk,
+    postUsersThunk,
+    deleteUsersThunk
+    })(UserContainer);
