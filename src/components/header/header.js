@@ -7,7 +7,7 @@ export const Header = (props) => {
 
     return (
         <header>
-            <img src="/images/logo.svg" className={style.logo} alt=""/>
+            <a href="/"><img src="/images/logo.svg" className={style.logo} alt=""/></a>
 
             {
                 (props.isAuth) ?

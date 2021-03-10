@@ -12,6 +12,8 @@ import StoreContext from "../../StoreContext";
 import {addPostActionCreator, updateNewPostTextActionCreator} from "../../redux/profileReducer";
 import {connect} from "react-redux";
 import {authReduser} from "../../redux/authReducer";
+import {Redirect} from "react-router-dom";
+import {withAuthRedirect} from "../hoc/withAuthRedirect";
 
 
 
@@ -20,7 +22,6 @@ let mapStateToProps = (state) => {
         dialogs: state.messageReducer.dialogs,
         messages: state.messageReducer.messages,
         newPostText: state.messageReducer.newPostText,
-        isAuth: state.authReduser.isAuth
     }
 }
 
@@ -37,5 +38,9 @@ let mapDispatchToProps = (dispatch) => {
     }
 }
 
+let AuthRedirectComponent = withAuthRedirect(Dialogs)
 
-export const DialogsConteiner = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+
+
+
+export const DialogsConteiner = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);

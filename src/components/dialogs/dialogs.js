@@ -17,7 +17,6 @@ export const Dialogs = (props) => {
 
     let textAriaRef = React.useRef();
 
-    if(!props.isAuth) return <Redirect to='/login' />
 
     let onPOstChange = () => {
         let text =  textAriaRef.current.value;

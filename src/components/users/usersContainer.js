@@ -9,6 +9,8 @@ import {
 import Users from "./users";
 import style from "./users.module.css";
 import Preloader from "../Preloader/preloader";
+import {withAuthRedirect} from "../hoc/withAuthRedirect";
+import {Dialogs} from "../dialogs/dialogs";
 
 let  mapStateToProps = (state) => {
 
@@ -75,11 +77,13 @@ class UserContainer extends React.Component {
     }
 }
 
-export const UsersContainer = connect(mapStateToProps, {
+//let AuthRedirectComponent = withAuthRedirect(UserContainer)
+
+export const UsersContainer = withAuthRedirect(connect(mapStateToProps, {
     follow,
     unfollow,
     toogleFollowingInProgress,
     getUsersThunk,
     postUsersThunk,
     deleteUsersThunk
-    })(UserContainer);
+    })(UserContainer));
