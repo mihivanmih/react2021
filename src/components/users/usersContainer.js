@@ -11,6 +11,7 @@ import style from "./users.module.css";
 import Preloader from "../Preloader/preloader";
 import {withAuthRedirect} from "../hoc/withAuthRedirect";
 import {Dialogs} from "../dialogs/dialogs";
+import {compose} from "redux";
 
 let  mapStateToProps = (state) => {
 
@@ -77,13 +78,25 @@ class UserContainer extends React.Component {
     }
 }
 
-//let AuthRedirectComponent = withAuthRedirect(UserContainer)
 
-export const UsersContainer = withAuthRedirect(connect(mapStateToProps, {
+export const UsersContainer = compose(
+    connect(mapStateToProps, {
+        follow,
+        unfollow,
+        toogleFollowingInProgress,
+        getUsersThunk,
+        postUsersThunk,
+        deleteUsersThunk
+    })
+)(UserContainer)
+/*
+
+export const UsersContainer = connect(mapStateToProps, {
     follow,
     unfollow,
     toogleFollowingInProgress,
     getUsersThunk,
     postUsersThunk,
     deleteUsersThunk
-    })(UserContainer));
+    })(UserContainer);
+*/

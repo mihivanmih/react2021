@@ -42,11 +42,31 @@ export const userApi = {
         )
     },
     getProfile(UserId) {
+        console.warn('старый метод')
+        return profileApi.getProfile(UserId)
+    }
+
+}
+
+
+export const profileApi = {
+
+    getProfile(UserId) {
         return (
             instance.get(`profile/`+UserId).then(response => {
                 return response.data
             })
         )
+    },
+    getProfileStatus(UserId) {
+        return (
+            instance.get(`profile/status/`+UserId).then(response => {
+                return response.data
+            })
+        )
+    },
+    updateProfileStatus(status) {
+        return instance.put(`profile/status`, { status: status })
     }
 
 }

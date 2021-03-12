@@ -2,6 +2,7 @@ import style from './profile.module.css'
 import {TimeStudy} from "../timeStudy/timeStudy";
 import {Posts} from "../myPosts/myPosts";
 import {MyPostsContainer} from "../myPosts/myPostsContainer";
+import ProfileStatus from "./profileStatus";
 
 export const Profile = (props) => {
 
@@ -13,6 +14,8 @@ export const Profile = (props) => {
             </div>
 
             <div className={style.content}>
+
+                <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
 
                 <TimeStudy /> <br/> <br/>
 

@@ -4,12 +4,14 @@ import {messageReducer} from "./messagesReduser";
 import {usersReducer} from "./userReducer";
 import {authReduser} from "./authReducer";
 import thunkMiddlewaer from 'redux-thunk'
+import { reducer as formReducer } from 'redux-form'
 
 let reducers = combineReducers({
     profileReducer,
     messageReducer,
     usersReducer,
-    authReduser
+    authReduser,
+    form: formReducer
 });
 
 

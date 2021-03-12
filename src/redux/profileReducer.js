@@ -1,8 +1,9 @@
-import {userApi} from "../api/api";
+import {profileApi, userApi} from "../api/api";
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
+const SET_STATUS = 'SET_STATUS'
 
 const getRandomInt = (min, max) => {
     return Math.floor(Math.random() * (max - min)) + min;
@@ -16,7 +17,8 @@ let initialStatedsasad = {
         {id: 4, message: 'Отдам через неделю', like: getRandomInt(0, 120)},
     ],
     newPostText: "Новый пост",
-    profile: null
+    profile: null,
+    status: ""
 }
 
 export const profileReducer = (state = initialStatedsasad, action) => {
@@ -40,6 +42,8 @@ export const profileReducer = (state = initialStatedsasad, action) => {
             }
         case SET_USER_PROFILE:
             return {...state, profile: action.setUserProfile}
+        case SET_STATUS:
+            return {...state, status: action.setUserStatus}
         default:
             return state;
     }
@@ -49,10 +53,27 @@ export const profileReducer = (state = initialStatedsasad, action) => {
 export const addPostActionCreator = () => ({   type: ADD_POST })
 export const updateNewPostTextActionCreator = (text) => ({ type: UPDATE_NEW_POST_TEXT, newText: text })
 export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, setUserProfile: profile })
+export const setUserStatus = (userid) => ({ type: SET_STATUS, setUserStatus: userid })
 
 export const ProfileShow = (UserId) => (dispatch) => {
     userApi.getProfile(UserId).then(data => {
             dispatch(setUserProfile(data))
+        }
+    )
+}
+
+export const StatusShow = (UserId) => (dispatch) => {
+    profileApi.getProfileStatus(UserId).then(data => {
+            dispatch(setUserStatus(data))
+        }
+    )
+}
+
+export const updateStatus = (status) => (dispatch) => {
+    profileApi.updateProfileStatus(status).then(data => {
+            if(data.data.resultCode === 0){
+                dispatch(setUserStatus(status))
+            }
         }
     )
 }
