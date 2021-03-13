@@ -1,0 +1,12 @@
+textarea {
+    border: none;
+    padding: 10px;
+}
+
+.error textarea, .error input  {
+    border: 2px solid #800f19;
+}
+
+.error span {
+    color: #800f19;
+}

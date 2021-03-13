@@ -17,35 +17,23 @@ import {withAuthRedirect} from "../hoc/withAuthRedirect";
 import {compose} from "redux";
 
 
-
 let mapStateToProps = (state) => {
     return {
         dialogs: state.messageReducer.dialogs,
         messages: state.messageReducer.messages,
-        newPostText: state.messageReducer.newPostText,
     }
 }
 
 let mapDispatchToProps = (dispatch) => {
     return {
-        updateMessage: (text) => {
-            let action = updateNewMessageTextActionCreator(text);
-            dispatch(action);
-        },
-        addMessage: () => {
-            let action = addMessageActionCreator();
+        addMessage: (text) => {
+            let action = addMessageActionCreator(text);
             dispatch(action);
         }
     }
 }
 
-
 export const DialogsConteiner =  compose(
     connect(mapStateToProps, mapDispatchToProps),
-    withAuthRedirect
+   // withAuthRedirect
 )(Dialogs)
-
-
-
-//let AuthRedirectComponent = withAuthRedirect(Dialogs)
-//export const DialogsConteiner = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);

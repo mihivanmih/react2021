@@ -24,7 +24,7 @@ export const TimeStudy = () => {
         {id: '9', 'date': '09.03.2021', 'time': '03:11:07', 'study': 'React 68 урок'},
         {id: '10', 'date': '10.03.2021', 'time': '03:13:04', 'study': 'React 72 урок'},
         {id: '11', 'date': '11.03.2021', 'time': '02:03:04', 'study': 'React 74 урок'},
-        {id: '12', 'date': '12.03.2021', 'time': '00:00:00', 'study': 'React 74 урок'},
+        {id: '12', 'date': '12.03.2021', 'time': '03:29:15', 'study': 'React 77 урок'},
     ]
 
     let arrTimeVisible = arrTime.map( item => (<VisibleTime dateState={item.date} key={item.id} timeState={item.time} study={item.study} />));

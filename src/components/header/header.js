@@ -1,5 +1,6 @@
 import style from './header.module.css'
 import {NavLink} from "react-router-dom";
+import {userlogut} from "../../redux/authReducer";
 
 export const Header = (props) => {
 
@@ -13,6 +14,7 @@ export const Header = (props) => {
                 (props.isAuth) ?
                     <div className={style.loginBlock}>
                         {props.login}
+                        <button onClick={props.userlogut}> Выйти </button>
                     </div>
                  :
                     <div className={style.loginBlock}>

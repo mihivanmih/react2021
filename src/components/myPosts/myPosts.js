@@ -4,7 +4,25 @@ import {Post} from "./Post/Post";
 import {Profile} from "../profile/profile";
 import {addPostActionCreator, profileReducer, updateNewPostTextActionCreator} from "../../redux/profileReducer";
 import Preloader from "../Preloader/preloader";
+import {Field, reduxForm} from "redux-form";
+import {maxLengthCreator, requireField} from "../../utils/validator";
+import {Textarea} from "../FormControls/Textarea";
 
+const maxLength10 = maxLengthCreator(10);
+
+const FormPost = (props) => {
+
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <Field validate={[requireField, maxLength10]} component={Textarea} name={"textarea"}  placeholder={"введите сообщение"} />
+            <button>Отправить</button>
+        </form>
+    )
+}
+
+const WallReduxForm = reduxForm({
+    form: 'wall'
+})(FormPost)
 
 export const Posts = (props) => {
 
@@ -12,23 +30,12 @@ export const Posts = (props) => {
         return <Preloader />
     }
 
-
     let newPostsData = props.posts.map(post =>(<Post message={post.message} key={post.id} like={post.like} />))
-    let newPostElement = React.createRef();
 
-
-/*
-    let onPostAdd = () => {
-        props.addPost();
+    const onSubmit = (formData) => {
+        props.addPost(formData.textarea)
+        formData.textarea = ""
     }
-*/
-
-    let onPOstChange = () => {
-        let text =  newPostElement.current.value;
-        props.updatePost(text);
-    }
-
-
 
     return (
         <div>
@@ -44,9 +51,7 @@ export const Posts = (props) => {
 
             <br /><br /><br />
             <div>Новый пост</div>
-            {/*<textarea onChange={onPOstChange} value={props.newPostText} ref={newPostElement} cols="30" rows="10" />*/}
-            <textarea onChange={onPOstChange} value={props.newPostText} ref={newPostElement} cols="30" rows="10" />
-            <button onClick={ () => props.addPost() }>Отправить</button>
+                { <WallReduxForm  onSubmit={onSubmit}  /> }
             {newPostsData}
         </div>
     );
