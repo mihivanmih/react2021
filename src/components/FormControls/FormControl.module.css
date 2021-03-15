@@ -10,3 +10,9 @@ textarea {
 .error span {
     color: #800f19;
 }
+
+.formError {
+    padding: 5px;
+    color: #ff4d4f;
+    border: 2px solid #800f19;
+}

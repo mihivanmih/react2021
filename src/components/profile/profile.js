@@ -3,6 +3,7 @@ import {TimeStudy} from "../timeStudy/timeStudy";
 import {Posts} from "../myPosts/myPosts";
 import {MyPostsContainer} from "../myPosts/myPostsContainer";
 import ProfileStatus from "./profileStatus";
+import ProfileStatusHooks from "./profileStatusHooks";
 
 export const Profile = (props) => {
 
@@ -15,7 +16,7 @@ export const Profile = (props) => {
 
             <div className={style.content}>
 
-                <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
+                <ProfileStatusHooks status={props.status} updateStatus={props.updateStatus} />
 
                 <TimeStudy /> <br/> <br/>
 

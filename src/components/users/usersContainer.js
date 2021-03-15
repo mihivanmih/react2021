@@ -12,9 +12,16 @@ import Preloader from "../Preloader/preloader";
 import {withAuthRedirect} from "../hoc/withAuthRedirect";
 import {Dialogs} from "../dialogs/dialogs";
 import {compose} from "redux";
+import {
+    getCurrentPage,
+    getFollowingInProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers, getUsersSuperSelector
+} from "../../redux/userSelector";
 
-let  mapStateToProps = (state) => {
-
+/*let  mapStateToProps = (state) => {
     return {
         users: state.usersReducer.users,
         pageSize: state.usersReducer.pageSize,
@@ -22,6 +29,16 @@ let  mapStateToProps = (state) => {
         currentPage: state.usersReducer.currentPage,
         isFetching: state.usersReducer.isFetching,
         followingInProgress: state.usersReducer.followingInProgress
+    }
+}*/
+let  mapStateToProps = (state) => {
+    return {
+        users: getUsersSuperSelector(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state)
     }
 }
 

@@ -1,0 +1,417 @@
+Установка реакта
+    npx create-react-app my-app
+    cd my-app
+    npm start
+
+    ctrl + c - выйти из редактора
+
+    npm install redux --save - установка redux
+    npm install react-redux --save  - установка react-redux
+
+
+
+Ошибки при установке
+
+"react-scripts" не является внутренней или внешней
+командой, исполняемой программой или пакетным файлом.
+
+    npm install
+    npm install react-scripts --save
+    npm i react-router-dom -save
+    npm install axios --save    --работа с сервером
+    npm i redux-thunk
+    npm add redux-form --save
+    npm install reselect
+
+
+
+
+
+Git
+
+gitk --all& - все коммиты
+git checkout 58557edea8720b2bb6044a48a6987d6d95b66c49
+В редакторе
+Checkout Revision '58557edea8720b2bb6044a48a6987d6d95b66c49'
+Version Control (правой мышкой) -> Copy Revision Number
+
+
+
+
+В return может быть только 1 div
+<App /> можно втавлять в другие компоненты
+import {любое название} from "./Tehnologis";
+
+Вставка хтмл
+const App = () =>{
+  <Header />
+  return (
+    <div className="App">
+      SImple html
+    </div>
+  );
+}
+
+<App />
+
+
+Терминология
+Компонента - это функция, возвращающая разметку JSX
+Компонента - это тег
+Детерминированность - отдаем data возвращаем result
+
+Горячие клавиши
+alt + enter = импортировать
+Alt + J = одинаковые куски
+Ctrl + Alt + Shift + J = все одинаковые куски
+Ctrl + Shift + N = Открыть файл и папку с ним
+Ctrl + Shift + V = Создать переменную
+Заемнить if на swith = клик по if восклицательный знак Replace Swith
+ctrl + shift + right arrow = выделить целое слово
+
+Уроки
+    2 класса
+    className={`${s.item} ${s.active}`}
+
+    Роуты
+    что бы работали npm i react-router-dom -save
+
+    <Route path='/dialogs' component={Dialogs}/>
+    Роуты должны быть обернуты в <BrowserRouter>
+
+    <Route exact path='/dialogs' component={Dialogs}/>
+    exact точное совпадение
+
+    let SomeComponent = () => <Dialogs />
+    <Route path='/dialogs' component={ SomeComponent }/>
+
+    <Route path='/dialogs' render={ () => <Dialogs /> }/>  - лучше использовать
+    <Route path='/dialogs' component={ () => <Dialogs /> }/>
+    <Route path='/profile'> <Profile PostsData={props.PostsData} /> </Route>
+
+
+    Добавляем параметры
+    <Route path="/profile/:userId" render={ () => <ProfileContainer />} />
+     <Route path="/profile/:userId?" render={ () => <ProfileContainer />} />  -- необязательный параметр
+
+
+    Вместо ссылок используем
+    <NavLink className={s.item} to="/music">Music</NavLink><br/>
+
+    Своя активная ссылка
+    <NavLink className={s.item} activeClassName={s.active} to="/profile">Profile</NavLink>
+
+
+   Пропсы
+   <DialogItem name="Dima" link="1"/>
+   Получение
+   <NavLink to={"/dialogs/"+props.link}>{props.name}</NavLink>
+   <NavLink to={path}>{props.name}</NavLink>
+
+    Отобразить массив в строку
+    { ['test1','test2','test3','test4']  }
+
+
+    onClick
+    onClick={ () => { alert('test')} }
+
+
+    Рефы
+    let newPostElement = React.createRef();
+    <textarea ref={newPostElement} ></textarea>
+    let addPost = () => {
+        let text = newPostElement.current.value;
+        return alert(text);
+    }
+
+    Импорт из одного файла
+    import state, {addPost} from "./redux/state";
+
+
+    Функции в переменных
+
+    let page = {
+        title: 'samsung',
+        content: '',
+        _contener: '', //договоренность внешне не использовать
+        setContent(value){
+            //log
+            //value SSX
+            this._content = value;
+        },
+        getContent() {
+            return this._content;
+        },
+        render () {
+            document.title = this.title;
+            document.write(this.content);
+        }
+    }
+
+    page.content = "<div>Content about React Js</div>";
+    page.setContent = "<div>Content about React Js</div>";
+    console.log(page.getContent());
+    page.render();
+
+    Bind позволяет зафиксировать this
+    <App state={store.getState()} addPost={store.addPost.bind(store)} addMessage={store.addMessage.bind(store)} />
+
+
+    Получить значение
+    let text = e.target.value;
+    let text = newMessageElement.current.value;
+
+    let a = {
+	'name':'Ivan',
+	'students': ['student1', 'student2']
+	'classroom': {
+	  teatcher:{
+	  	'name': 'new',
+		'age': '18'
+	  }
+	}	
+    }		
+
+    Копировать объект (поверхностное копирование 1 уровня)
+    var b = {...a}  копия первого уровня
+    b.classroom = {...a.classroom};
+    b.classroom.teatcher = {...a.classroom.teatcher};
+    b.students = [...a.students]
+
+    let stateCopy = {
+        ...state,
+        messages: [...state.messages]
+    }
+
+    Добавление в массив
+    Вместо stateCopy.messages.push(newMessage);
+    messages: [...state.messages, newMessage] - в конец
+    messages: [{id: 5, message: state.newPostText}, ...state.messages] - в начало
+
+    Массив
+    let newDialogData = props.dialogs.map(dialog => (<DialogItem key={dialog.id} name={dialog.name} id={dialog.id}/>))
+    let mass = store.users.map(users => users)
+
+    Фик багов
+    Для всех map нужно поставить key={post.id}
+
+    Работа с сервером
+
+    axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+        props.setUsers(response.data.items)
+    })
+
+    Классовые компоненты
+
+    export class Users extends React.Component {
+
+        constructor(props) { //не надо писать если берем только пропсы
+            super(props);
+            axios.get('https://social-network.samuraijs.com/api/1.0/users?count=5').then(response => {
+                this.props.setUsers(response.data.items)
+            })
+        }
+
+        getUsers = () => {
+
+           alert("test");
+        }
+
+        render() {
+            return (<div>1</div>)
+         }
+
+    }
+
+    export class Users extends React.Component {
+
+        componentDidMount() {
+            axios.get('https://social-network.samuraijs.com/api/1.0/users?count=5').then(response => {
+                this.props.setUsers(response.data.items)
+            })
+        }
+
+    }
+
+    Что бы прокануть пропсы, нужно их скопировать
+    <Profile {...this.props} profile={this.props.profile} />
+
+    Возвращение состояния адресной строки
+
+    let UserId = this.props.match.params.userId;
+    let withUrlDataContainerComponent = withRouter(ProfileContainer);
+    export default connect(mapStateToProps, {setUserProfile})(withUrlDataContainerComponent);
+
+    Перезатираем стейт
+
+    switch (action.type) {
+        case SET_USER_DATA:
+            return {
+                ...state,
+                ...action.data
+        default:
+            return state;
+    }
+
+    Проверка авторизация на сайте
+
+    axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
+        withCredentials: true
+    }).then(response => {
+        debugger
+    })
+
+    post запрос (withCredentials третим параметром)
+
+    <button onClick={ () => {
+        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/`+ user.id, {}, {
+            withCredentials: true,
+            headers: {
+                'API-KEY':'4839c802-e833-422a-9cf4-5744112ec8d3'
+            }
+        }).then(response => {
+            if(response.data.resultCode === 0){
+                props.follow(user.id)
+            }
+        })
+       }
+    } > Follow </button>
+
+
+    delete запрос
+     axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/`+ user.id, {
+        withCredentials: true,
+        headers: {
+            'API-KEY':'4839c802-e833-422a-9cf4-5744112ec8d3'
+        }
+    }).then(response => {
+
+    }
+
+
+    Метод some() проверяет, удовлетворяет ли какой-либо элемент массива условию, заданному в передаваемой функции.
+    Array.prototype.some()
+
+    Можно ставить debugger и в консоле писать this.props
+    Санка это функция которая принимает dispatch
+    High Order Component (hoc) - компонента высшего порядка - принимает и возвращает компоненту
+
+    Редирект if(props.isAuth == false ) return <Redirect to='login' />
+    if(!props.isAuth) return <Redirect to='/login' />
+
+    this.forceUpdate(); - костыль для обновления стейта на крайнии случаи
+
+    Обновляем стейт
+    activeEditMode = () => {
+        this.setState({
+            editMode:false
+        })
+    }
+
+    Автофокус
+    <input autoFocus={true} onBlur={ this.deactivatedEditMode } type="text" value={this.props.status}/>
+
+    setState зацикливает, нужно его всегда ставить в условия
+
+    if(prevProps.status !== this.props.status) {
+        this.setState({
+            status: this.props.status
+        })
+    }
+
+    В редусере обязательно должен быть form
+    import { reducer as formReducer } from 'redux-form'
+    form: formReducer
+
+    уникальное имя для формы
+    const LoginReduxForm = reduxForm({
+        form: 'login'
+    })(Login)
+
+    Отменить значение по умолчанию
+     <form action="" onSubmit={props.handleSubmit}>
+
+    Валидатор для отдельного поля stopSubmit
+    loginApi.loginPost(email, password, rememberMe).then(response => {
+        if(response.resultCode === 0){
+            dispatch(userName())
+        } else {
+            let action = stopSubmit("login", {email: "неправльный мейл"});
+            dispatch(action)
+        }
+    })
+
+    Если есть ошибка то показываем див. два амперсанда
+    {props.error && < div className={style.formError}>
+        {props.error}
+        </div>
+    }
+
+    Общая ошибка для всех полей
+    let action = stopSubmit("login", {_error: "неправльный email или пароль"});
+
+
+
+    ctrl + p в консоле, открывает поиск файла во вкладке Отладчик
+
+    Клик по стрелке - рефактор - конверт то класс компонент
+    Преобразование функционлаьной компоненты в классовую
+
+    Редирект системный this.props.history.push("/login")
+
+    Массив промисов
+    let promise  = dispatch(userName());
+    //dispatch(someDataData());
+
+    Promise.all([promise]).then( () => {
+        dispatch(setInitialized());
+    })
+
+    Пример хока react-redux connect
+
+    реселекторы
+    export const getUsersSuperSelector = createSelector(getUsers, getIsFetching, (users, isFetching) => {
+
+    Библиотека анимаций
+    https://www.react-spring.io/docs/hooks/api
+
+    Хуки
+    let [editMode, setEditMode] = useState( false); - локальный стейт
+    let [status, setStatus] = useState( props.status);
+
+    // после обновления
+    useEffect( () => {
+        setStatus(props.status);
+    }, [props.status])
+
+	PHPSTORM
+    Rainbow Brackets - плагин для подсветки скобок
+
+Прочитать
+DDD Domain-driven design - Wikipedia
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

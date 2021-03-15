@@ -18,7 +18,7 @@ let initialState = {
     followingInProgress: [],
 }
 
-export const usersReducer = (state = initialState, action) => {
+export const usersReducerNew = (state = initialState, action) => {
 
     switch (action.type) {
         case SET_USERS:
