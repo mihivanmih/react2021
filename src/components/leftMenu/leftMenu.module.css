@@ -1,5 +1,5 @@
 .leftMenu {
-    width: calc(20% - 40px);
+    width: 20%;
     height: calc(100vh - 280px);
     background: bisque;
     padding: 20px;

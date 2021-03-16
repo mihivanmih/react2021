@@ -10,7 +10,7 @@ export const Profile = (props) => {
     return (
         <div>
 
-            <div className={style.Topimg}>
+            <div className={style.topimg}>
                 <img src="/images/topimg.jpg" alt=""/>
             </div>
 

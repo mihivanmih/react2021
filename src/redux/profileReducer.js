@@ -3,6 +3,7 @@ import {profileApi, userApi} from "../api/api";
 const ADD_POST = 'ADD-POST'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
 const SET_STATUS = 'SET_STATUS'
+const DELETE_POST = 'DELETE_POST'
 
 const getRandomInt = (min, max) => {
     return Math.floor(Math.random() * (max - min)) + min;
@@ -33,6 +34,8 @@ export const profileReducer = (state = initialStatedsasad, action) => {
                 newPostText: "",
                 posts: [...state.posts, newPost]
             }
+        case DELETE_POST:
+            return {  ...state, posts: state.posts.filter(p => p.id != action.Postid) }
         case SET_USER_PROFILE:
             return {...state, profile: action.setUserProfile}
         case SET_STATUS:
@@ -46,6 +49,7 @@ export const profileReducer = (state = initialStatedsasad, action) => {
 export const addPostActionCreator = (text) => ({   type: ADD_POST, text: text })
 export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, setUserProfile: profile })
 export const setUserStatus = (userid) => ({ type: SET_STATUS, setUserStatus: userid })
+export const deletePost = (Postid) => ({ type: DELETE_POST, Postid: Postid })
 
 export const ProfileShow = (UserId) => (dispatch) => {
     userApi.getProfile(UserId).then(data => {

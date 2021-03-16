@@ -36,8 +36,6 @@ export const userName = () => (dispatch) => {
             dispatch(setUserData(id, email , login, true));
         }
     })
-
-    return "etststter"
 }
 
 export const userlogin = (email, password, rememberMe) => (dispatch) => {
