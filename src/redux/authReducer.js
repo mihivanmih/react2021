@@ -29,30 +29,39 @@ export const authReduser = (state = initialState, action) => {
 
 export const setUserData = (userId, email, login, isAuth) => ({   type: SET_USER_DATA, payload:{userId, email, login, isAuth} })
 
-export const userName = () => (dispatch) => {
-    return userApi.getLoginName().then(response => {
-        if(response.resultCode === 0){
-            let {email, id , login} = response.data;
-            dispatch(setUserData(id, email , login, true));
-        }
-    })
+export const userName = () => async (dispatch) => {
+    let response = await userApi.getLoginName() //возвращается промис
+
+    if(response.resultCode === 0){
+        let {email, id , login} = response.data;
+        dispatch(setUserData(id, email , login, true));
+    }
 }
 
-export const userlogin = (email, password, rememberMe) => (dispatch) => {
+export const userlogin = (email, password, rememberMe) => async (dispatch) => {
 
-    loginApi.loginPost(email, password, rememberMe).then(response => {
-        if(response.resultCode === 0){
-            dispatch(userName())
-        } else {
-            dispatch(stopSubmit("login", {_error: response.messages}));
-        }
-    })
+    let response = await loginApi.loginPost(email, password, rememberMe)
+
+    if(response.resultCode === 0){
+        dispatch(userName())
+    } else {
+        dispatch(stopSubmit("login", {_error: response.messages}));
+    }
 }
 
+/*
 export const userlogut = () => (dispatch) => {
     loginApi.logoutPost().then(response => {
         if(response.resultCode === 0){
             dispatch(setUserData(null, null , null, false));
         }
     })
+}*/
+
+export const userlogut = () => async (dispatch) => {
+    let response = await loginApi.logoutPost()
+
+    if(response.resultCode === 0){
+        dispatch(setUserData(null, null , null, false));
+    }
 }

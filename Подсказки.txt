@@ -22,6 +22,8 @@
     npm i redux-thunk
     npm add redux-form --save
     npm install reselect
+    npm i react-test-renderer@17.0.1 --save-dev - нужна версия реакта
+    npm install react-js-pagination --save -пагинация
 
 
 
@@ -399,6 +401,28 @@ ctrl + shift + right arrow = выделить целое слово
     3. no side effect - не оставляет какого-то мусора во внешнем мире
     4. детерминированность (идемпотентность) - это значит что сколько ни пускай мне на вход одни и те же данные я тебе всегда верну один и тот же ответ
     pure function (чистая функция)
+
+
+    Асинхронность вместо then
+    export const userName = () => async (dispatch) => {
+        let response = await userApi.getLoginName(); //возвращается промис
+
+        if(response.resultCode === 0){
+            let {email, id , login} = response.data;
+            dispatch(setUserData(id, email , login, true));
+        }
+    }
+
+    ctrl + p подсказка какие параметры принимает функция
+
+    lazy load - тестовая технология
+    const DialogsConteiner = React.lazy( () => import("./components/dialogs/dialogsContainer"));
+    const ProfileContainer = React.lazy( () => import("./components/profile/profileContainer"));
+    <Route path="/profile/:userId?" render={() => {
+        return <React.Suspense fallback={<div>...Loading</div>}>
+            <ProfileContainer/>
+        </React.Suspense>  }}/>
+
 
 Прочитать
 DDD Domain-driven design - Wikipedia

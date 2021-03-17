@@ -5,7 +5,7 @@ import {MyPostsContainer} from "../myPosts/myPostsContainer";
 import ProfileStatus from "./profileStatus";
 import ProfileStatusHooks from "./profileStatusHooks";
 
-export const Profile = (props) => {
+export const Profile = ({status, updateStatus, profile}) => {
 
     return (
         <div>
@@ -16,13 +16,13 @@ export const Profile = (props) => {
 
             <div className={style.content}>
 
-                <ProfileStatusHooks status={props.status} updateStatus={props.updateStatus} />
+                <ProfileStatusHooks status={status} updateStatus={updateStatus} />
 
                 <TimeStudy /> <br/> <br/>
 
                  Мой профиль <br/><br/>
 
-                 <MyPostsContainer profile={props.profile}/>
+                 <MyPostsContainer profile={profile}/>
 
             </div>
 

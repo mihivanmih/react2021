@@ -3,8 +3,6 @@ import React from 'react'
 
 class ProfileStatus extends React.Component {
 
-
-
     state = {
         editMode : true,
         status: this.props.status

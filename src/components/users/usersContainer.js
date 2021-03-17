@@ -31,44 +31,20 @@ import {
         followingInProgress: state.usersReducer.followingInProgress
     }
 }*/
-let  mapStateToProps = (state) => {
-    return {
-        users: getUsersSuperSelector(state),
-        pageSize: getPageSize(state),
-        totalUsersCount: getTotalUsersCount(state),
-        currentPage: getCurrentPage(state),
-        isFetching: getIsFetching(state),
-        followingInProgress: getFollowingInProgress(state)
-    }
-}
+
+
 
 class UserContainer extends React.Component {
 
     componentDidMount() {
         //this.props.getUsersThunk() //так пересылаются все пропсы
-        this.props.getUsersThunk(this.props.pageSize, this.props.currentPage)
+        const {pageSize, currentPage} = this.props
+        this.props.getUsersThunk(pageSize, currentPage)
     }
-/*
-    componentDidMount() {
-        this.props.setIsFetching(true);
-
-        userApi.getUsersApi(this.props.pageSize, this.props.currentPage).then(data => {
-            this.props.setUsers(data.items)
-            this.props.setTotalUserCOunt(data.totalCount)
-            this.props.setIsFetching(false);
-        })
-    }
-*/
 
     onPageClick = (pageNumber) => {
-        this.props.getUsersThunk(this.props.pageSize, pageNumber)
-
-/*        this.props.setIsFetching(true);
-        this.props.currentPageClick(pageNumber)
-        userApi.getUsersApi(this.props.pageSize, pageNumber).then(data => {
-            this.props.setUsers(data.items)
-            this.props.setIsFetching(false);
-        })*/
+        const {pageSize} = this.props
+        this.props.getUsersThunk(pageSize, pageNumber)
     }
 
 
@@ -95,6 +71,17 @@ class UserContainer extends React.Component {
     }
 }
 
+
+let  mapStateToProps = (state) => {
+    return {
+        users: getUsersSuperSelector(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state)
+    }
+}
 
 export const UsersContainer = compose(
     connect(mapStateToProps, {

@@ -8,10 +8,10 @@ import {requireField} from "../../utils/validator";
 import {Redirect} from "react-router-dom";
 import style from "./../../components/FormControls/FormControl.module.css"
 
-const LoginForm = (props) => {
+const LoginForm = ({handleSubmit,error}) => {
 
     return (
-            <form action="" onSubmit={props.handleSubmit}>
+            <form action="" onSubmit={handleSubmit}>
                 <div>
                     <Field component={Input} validate={[requireField]} name={"login"} type="text" placeholder={"Логин"}/>
                 </div>
@@ -21,8 +21,8 @@ const LoginForm = (props) => {
                 <div>
                     <Field component={"input"} type={"checkbox"} name={"rememberMe"} /> Запомнить меня
                 </div>
-                {props.error && < div className={style.formError}>
-                    {props.error}
+                {error && < div className={style.formError}>
+                    {error}
                     </div>
                 }
                 <div>
