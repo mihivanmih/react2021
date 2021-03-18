@@ -6,6 +6,7 @@ import {userApi} from "../../api/api";
 import {Button} from "antd";
 import {Testunfollow} from "../../redux/userReducer";
 import {Paginator} from "../Paginator/paginator";
+import avanone from "../../assets/images/avanone.webp";
 
 let User = ({user, deleteUsersThunk, postUsersThunk, followingInProgress}) => {
 
@@ -21,7 +22,7 @@ let User = ({user, deleteUsersThunk, postUsersThunk, followingInProgress}) => {
                     } > Follow </Button>}
                 </div>
                 <div className={style.userprofile}>
-                    <NavLink to={ '/profile/'+ user.id }><div className={style.avatar}>{user.photos.small === null ? <img src="/images/avanone.webp" alt=""/> : <img src={user.photos.small} alt=""/>}</div></NavLink>
+                    <NavLink to={ '/profile/'+ user.id }><div className={style.avatar}>{user.photos.small === null ? <img src={avanone} alt=""/> : <img src={user.photos.small} alt=""/>}</div></NavLink>
                     <div>{user.name}</div>
                     <div>{user.status}</div>
                 </div>

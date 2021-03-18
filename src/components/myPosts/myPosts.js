@@ -5,6 +5,7 @@ import Preloader from "../Preloader/preloader";
 import {Field, reduxForm} from "redux-form";
 import {maxLengthCreator, requireField} from "../../utils/validator";
 import {Textarea} from "../FormControls/Textarea";
+import avanone from "../../assets/images/avanone.webp";
 
 const maxLength10 = maxLengthCreator(10);
 
@@ -24,7 +25,6 @@ const WallReduxForm = reduxForm({
 
 export const Posts = React.memo (props => {
 
-    console.log("sdfsf")
 
     if (!props.profile) {
         return <Preloader/>
@@ -38,12 +38,21 @@ export const Posts = React.memo (props => {
         formData.textarea = ""
     }
 
+    const onMainFotoSelected = (e) => {
+        if(e.target.files.length)
+        {
+            props.savePhoto(e.target.files[0])
+        }
+
+    }
+
     return (
         <div>
             Мои посты <br/><br/>
 
             Аватар <br/>
-            <img src={props.profile.photos.large} alt=""/><br/>
+            {props.isowner && <input type="file" onChange={onMainFotoSelected}/>}
+            <img src={props.profile.photos.large || avanone } className={'mainfoto'} alt=""/><br/>
             Имя: {props.profile.fullName}<br/>
             Обо мне: {props.profile.aboutMe}<br/>
             Ищет работу: {props.profile.lookingForAJob ? <span>Да</span> : <span>Нет</span>} <br/>

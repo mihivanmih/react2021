@@ -14,6 +14,9 @@ export const LeftMenu = () => {
                  <li className={style.item}>
                      <NavLink to="/users" activeClassName={style.active}>Пользователи</NavLink>
                  </li>
+                 <li className={style.item}>
+                     <NavLink to="/study" activeClassName={style.active}>Учеба</NavLink>
+                 </li>
                  {/*<li>Найстройки</li>*/}
                  <li><a href="https://onlinetimer.ru/#!/timer/2021-03-01T10:49:34.984Z/2021-03-01T08:47:45.266Z/forward/0/2/100/t/2021-03-01T11:59:25.799Z/" target="_blank">Таймер</a></li>
              </ul>

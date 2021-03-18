@@ -1,14 +1,14 @@
 import style from './header.module.css'
 import {NavLink} from "react-router-dom";
 import {userlogut} from "../../redux/authReducer";
-
+import logo from "../../assets/images/logo.svg";
 export const Header = (props) => {
 
 
 
     return (
         <header>
-            <a href="/"><img src="/images/logo.svg" className={style.logo} alt=""/></a>
+            <a href="/"><img src={logo} className={style.logo} alt=""/></a>
 
             {
                 (props.isAuth) ?

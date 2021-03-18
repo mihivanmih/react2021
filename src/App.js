@@ -6,7 +6,7 @@ import {Footer} from "./components/footer/footer";
 import {LeftMenu} from "./components/leftMenu/leftMenu";
 import {Profile} from "./components/profile/profile";
 import {Dialogs} from "./components/dialogs/dialogs";
-import {BrowserRouter, Route} from "react-router-dom";
+import {HashRouter, BrowserRouter, Route} from "react-router-dom";
 //import {DialogsConteiner} from "./components/dialogs/dialogsContainer";
 import {UsersContainer} from "./components/users/usersContainer";
 import HeaderContainer from "./components/header/headerContainer";
@@ -26,6 +26,7 @@ const ProfileContainer = React.lazy( () => import("./components/profile/profileC
 
 import ProfileContainer from "./components/profile/profileContainer";
 import {withSuspense} from "./components/hoc/withSuspense";
+import {Study} from "./pages/study/study";
 //import DialogsConteiner from "./components/dialogs/dialogsContainer";
 const DialogsConteiner = React.lazy( () => import("./components/dialogs/dialogsContainer"));
 
@@ -44,7 +45,7 @@ class App extends Component {
         }
 
         return (
-            <BrowserRouter>
+            <HashRouter>
                 <div className="App">
                     <HeaderContainer/>
                     <LeftMenu/>
@@ -67,11 +68,12 @@ class App extends Component {
 
 
                         <Route path="/users" render={() => <UsersContainer/>}/>
+                        <Route path="/study" render={() => <Study/>}/>
                         <Route path="/login" render={() => <Login/>}/>
                     </div>
                     <Footer/>
                 </div>
-            </BrowserRouter>
+            </HashRouter>
         );
     }
 }

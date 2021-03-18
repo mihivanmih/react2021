@@ -24,8 +24,8 @@
     npm install reselect
     npm i react-test-renderer@17.0.1 --save-dev - нужна версия реакта
     npm install react-js-pagination --save -пагинация
-
-
+    npm install gh-pages --save-dev - для пайд гита
+    npm install antd --save -UI
 
 
 
@@ -414,6 +414,7 @@ ctrl + shift + right arrow = выделить целое слово
     }
 
     ctrl + p подсказка какие параметры принимает функция
+    alt + f7  - показать все файлы где используется функция
 
     lazy load - тестовая технология
     const DialogsConteiner = React.lazy( () => import("./components/dialogs/dialogsContainer"));
