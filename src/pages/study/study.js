@@ -1,7 +1,9 @@
 import React from 'react'
 import {TimeStudy} from "../../components/timeStudy/timeStudy";
+import {compose} from "redux";
+import {withAuthRedirect} from "../../components/hoc/withAuthRedirect";
 
-export const Study = ({handleSubmit,error}) => {
+const Study = () => {
 
     return (
           <div>
@@ -9,3 +11,8 @@ export const Study = ({handleSubmit,error}) => {
           </div>
     );
 }
+
+export default compose(withAuthRedirect)(Study)
+
+
+

@@ -11,3 +11,13 @@
 .content {
     padding: 20px;
 }
+
+::placeholder {
+    color: #2f0f0f;
+}
+
+[type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+    position: relative;
+    opacity: 1;
+    pointer-events: all;
+}

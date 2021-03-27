@@ -5,7 +5,7 @@ import ProfileStatus from "./profileStatus";
 import ProfileStatusHooks from "./profileStatusHooks";
 import topimg from "../../assets/images/topimg.jpg";
 
-export const Profile = ({status, updateStatus, profile, isowner, savePhoto}) => {
+export const Profile = ({status, updateStatus, profile, isowner, savePhoto, saveProfile}) => {
 
     return (
         <div>
@@ -22,7 +22,7 @@ export const Profile = ({status, updateStatus, profile, isowner, savePhoto}) => 
 
                  Мой профиль <br/><br/>
 
-                 <MyPostsContainer savePhoto={savePhoto}  isowner={isowner} profile={profile}/>
+                 <MyPostsContainer savePhoto={savePhoto}  saveProfile={saveProfile} isowner={isowner} profile={profile}/>
 
             </div>
 

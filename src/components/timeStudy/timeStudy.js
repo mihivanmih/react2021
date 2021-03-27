@@ -1,5 +1,6 @@
-import {NavLink} from "react-router-dom";
-import style from "../dialogs/dialogs.module.css";
+import React from 'react'
+import classes from './timeStudy.module.css'
+import cn from 'classnames'
 
 export const VisibleTime = (props) => {
     return (
@@ -30,7 +31,16 @@ export const TimeStudy = () => {
         {id: '15', 'date': '15.03.2021', 'time': '05:31:07', 'study': 'React 89 урок'},
         {id: '16', 'date': '16.03.2021', 'time': '06:36:30', 'study': 'React 94 урок'},
         {id: '17', 'date': '17.03.2021', 'time': '06:28:18', 'study': 'React 95 урок, udemy 7 урок'},
-        {id: '18', 'date': '18.03.2021', 'time': '01:27:18', 'study': 'React 96 урок, udemy 7 урок'},
+        {id: '18', 'date': '18.03.2021', 'time': '03:38:18', 'study': 'React 97 урок'},
+        {id: '19', 'date': '19.03.2021', 'time': '05:42:15', 'study': 'React 97 урок, udemy 39 урок'},
+        {id: '20', 'date': '20.03.2021', 'time': '02:41:46', 'study': 'React 97 урок, udemy 41 урок'},
+        {id: '21', 'date': '21.03.2021', 'time': '03:46:44', 'study': 'React 98 урок, udemy 53 урок'},
+        {id: '22', 'date': '22.03.2021', 'time': '05:23:52', 'study': 'React 98 урок, udemy 73 урок'},
+        {id: '23', 'date': '23.03.2021', 'time': '05:12:23', 'study': 'React 98 урок, udemy 87 урок'},
+        {id: '24', 'date': '24.04.2021', 'time': '06:25:18', 'study': 'React 98 урок, udemy 102 урок'},
+        {id: '25', 'date': '25.04.2021', 'time': '05:05:27', 'study': 'React 98 урок, udemy 109 урок'},
+        {id: '26', 'date': '26.04.2021', 'time': '08:49:53', 'study': 'React 98 урок, udemy 109 урок, настрйока сервера'},
+        {id: '27', 'date': '27.04.2021', 'time': '02:36:55', 'study': 'React 99 урок, udemy 109 урок'},
     ]
 
     let arrTimeVisible = arrTime.map( item => (<VisibleTime dateState={item.date} key={item.id} timeState={item.time} study={item.study} />));
@@ -50,9 +60,10 @@ export const TimeStudy = () => {
     let col = 0;
     let time = "";
     let allTime = "";
+
     while(col<arrTime.length) {
         time = SEcondTime(arrTime[col].time);
-        allTime = Number(time) + Number(allTime);
+        allTime = +time + +allTime;
         col++;
     }
 
@@ -68,7 +79,7 @@ export const TimeStudy = () => {
     if(String(mnts).length==1){mnts = "0" + mnts }
     if(String(hrs).length==1){hrs = "0" + hrs }
 
-    let TimeDay = days+" дня, "+hrs+":"+mnts+":"+seconds;
+    let TimeDay = days+" дней, "+hrs+":"+mnts+":"+seconds;
 
     return (
         <div>
@@ -76,8 +87,10 @@ export const TimeStudy = () => {
 
             {arrTimeVisible}
 
-
-            Полное время: {TimeDay}
+            <div className={cn(classes.timeStudy, classes.color)}>
+                Полное время: {TimeDay}
+               <div>Время в часах: { +days*24 + +hrs}</div>
+            </div>
         </div>
     );
 }

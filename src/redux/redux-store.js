@@ -17,7 +17,7 @@ let reducers = combineReducers({
 });
 
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // плагин для хрома
 const store = createStore(reducers, composeEnhancers(applyMiddleware(thunkMiddlewaer)));
 
 //let store = createStore(reducers, applyMiddleware(thunkMiddlewaer));

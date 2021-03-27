@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './myPosts.css'
 import {Post} from "./Post/Post";
 import Preloader from "../Preloader/preloader";
@@ -6,6 +6,7 @@ import {Field, reduxForm} from "redux-form";
 import {maxLengthCreator, requireField} from "../../utils/validator";
 import {Textarea} from "../FormControls/Textarea";
 import avanone from "../../assets/images/avanone.webp";
+import ProfileForm from "../profile/myProfile/profileDataform";
 
 const maxLength10 = maxLengthCreator(10);
 
@@ -23,8 +24,30 @@ const WallReduxForm = reduxForm({
     form: 'wall'
 })(FormPost)
 
-export const Posts = React.memo (props => {
 
+export const ProfileData = (props) => {
+
+    return  <div>
+        { props.isowner &&  <button onClick={() => {  props.setEditMode(true)  }}>Редактировать</button> }
+        <strong>Имя:</strong> {props.profile.fullName}<br/>
+        <strong>Обо мне:</strong> {props.profile.aboutMe}<br/>
+        <strong>Ищет работу:</strong> {props.profile.lookingForAJob ? <span>Да</span> : <span>Нет</span>} <br/>
+        <strong>О работе:</strong> {props.profile.lookingForAJobDescription} <br/>
+        <strong>Контакты:</strong>
+        { Object.keys(props.profile.contacts).map(key => {
+            return <div key={key}>
+                {key} {props.profile.contacts.[key]}
+            </div>
+        })}
+    </div>
+
+}
+
+
+
+export const Posts =  (props) => {
+
+    let [editMod, setEditMode] = useState(false)
 
     if (!props.profile) {
         return <Preloader/>
@@ -38,6 +61,15 @@ export const Posts = React.memo (props => {
         formData.textarea = ""
     }
 
+    const onSubmitEditForm = (formData) => {
+        props.saveProfile(formData).then (
+            () => {
+                setEditMode(false)
+            }
+        )
+
+    }
+
     const onMainFotoSelected = (e) => {
         if(e.target.files.length)
         {
@@ -48,16 +80,13 @@ export const Posts = React.memo (props => {
 
     return (
         <div>
-            Мои посты <br/><br/>
+            Мои посты! <br/><br/>
 
             Аватар <br/>
             {props.isowner && <input type="file" onChange={onMainFotoSelected}/>}
             <img src={props.profile.photos.large || avanone } className={'mainfoto'} alt=""/><br/>
-            Имя: {props.profile.fullName}<br/>
-            Обо мне: {props.profile.aboutMe}<br/>
-            Ищет работу: {props.profile.lookingForAJob ? <span>Да</span> : <span>Нет</span>} <br/>
-            О работе: {props.profile.lookingForAJobDescription} <br/>
-            Контакты: {props.profile.contacts.vk}
+
+            { editMod ? <ProfileForm initialValues={props.profile} onSubmit={onSubmitEditForm} {...props} /> : <ProfileData setEditMode={setEditMode} {...props} />}
 
             <br/><br/><br/>
             <div>Новый пост</div>
@@ -65,4 +94,4 @@ export const Posts = React.memo (props => {
             {newPostsData}
         </div>
     );
-})
+}

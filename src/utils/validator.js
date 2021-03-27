@@ -1,6 +1,5 @@
 export const requireField = value => {
     if (value) return undefined
-
     return 'Обязательное поле'
 }
 

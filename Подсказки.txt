@@ -15,18 +15,26 @@
 "react-scripts" не является внутренней или внешней
 командой, исполняемой программой или пакетным файлом.
 
-    npm install
+    npx create-react-app my-app
+
     npm install react-scripts --save
     npm i react-router-dom -save
     npm install axios --save    --работа с сервером
-    npm i redux-thunk
+    npm i redux-thunk --save
     npm add redux-form --save
     npm install reselect
     npm i react-test-renderer@17.0.1 --save-dev - нужна версия реакта
     npm install react-js-pagination --save -пагинация
     npm install gh-pages --save-dev - для пайд гита
     npm install antd --save -UI
+    npm install classnames --save --сокращенные стили
 
+    udemy
+    npm install radium  - стилизация без css
+    npm install prop-types - валидация
+    npm install is_js --save - проверки
+
+    https://www.npmjs.com/package/react-sizes - size!!!
 
 
 Git
@@ -55,6 +63,7 @@ const App = () =>{
 }
 
 <App />
+
 
 
 Терминология
@@ -109,6 +118,40 @@ ctrl + shift + right arrow = выделить целое слово
    Получение
    <NavLink to={"/dialogs/"+props.link}>{props.name}</NavLink>
    <NavLink to={path}>{props.name}</NavLink>
+
+   <NavLink to={{
+        oathname: '/cars',
+        search: '?a=1&b=2',
+        hash: 'wtf-hash'
+   }}>{props.name}</NavLink>
+
+    withRouter -получить пропсы навигации (оборачивает функциональные компоненты)
+    import {Route, NavLink, withRouter} from "react-router-dom";
+    export default withRouter(App);
+
+    props.history.push('/cars/' +props.name.id)
+    <NavLink to="/dialogs/:name">{props.name}</NavLink>
+
+    <Swith>
+        Кто выше тот и главный
+        <NavLink to="/" component={page404}>1</NavLink>
+        <NavLink to="/dialogs/:name">{props.name}</NavLink>
+    <Swith>
+
+    Редирект
+    import {Route, NavLink, withRouter, Redirect} from "react-router-dom";
+
+    <Redirect from={'/about'} to={'/cars'}/> - не работает в свиче и выводит ворнинг
+    <Route path={'/auth'} component={Quiz} />
+
+    Link - упрощенный переход	
+    <Link to={'/'}>
+    	<Button onClick={props.onRetry} type='success'>Вернуться ко всем тестам</Button>
+    </Link>
+
+    compose - HOC от redux принимает компоненту и возвращает модифицированную
+    export default compose(withAuthRedirect)(Study)
+
 
     Отобразить массив в строку
     { ['test1','test2','test3','test4']  }
@@ -388,6 +431,17 @@ ctrl + shift + right arrow = выделить целое слово
 
 	PHPSTORM
     Rainbow Brackets - плагин для подсветки скобок
+    Import Cost -  плагин показывающий вес импортируемых файлов https://plugins.jetbrains.com/plugin/9970-import-cost/reviews
+    Indent Rainbow - цветные пробелы https://plugins.jetbrains.com/plugin/13308-indent-rainbow
+    Console Log - при клике на переменную выводит её в консоль, комбинация клавиш ctrl + L https://plugins.jetbrains.com/plugin/10986-console-log
+    Better Comments - цветные комментарии https://plugins.jetbrains.com/plugin/10850-better-comments
+    https://plugins.jetbrains.com/plugin/12895-comments-highlighter
+
+    redux devtools  - плагин для хрома и мозилы
+    react devtools
+
+    Горячие клавиши
+    ctrl + alt + l = убирает пробелы
 
     ctrl + shift + alt + t - превратить функциональную компоненту в классовую
 
@@ -424,6 +478,583 @@ ctrl + shift + right arrow = выделить целое слово
             <ProfileContainer/>
         </React.Suspense>  }}/>
 
+    Пройтись по объекту
+    { Object.keys(props.profile.contacts).map(key => {
+            return <div>
+                {key} {props.profile.contacts.[key]}
+            </div>
+     })}
+
+     Передача стейта, для всех value initialValues
+     <ProfileForm initialValues={props.profile} onSubmit={onSubmitEditForm} {...props} />
+
+
+    Стили
+     Можно установить доп. библеотеку (Classnames) и писать вот так
+     <div className={cn(classes.timeStudy, classes.color)}>
+
+
+    window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors) //обрабоктка всех ошибок промисов
+
+
+    PHPSTORM
+    ALT + F7 можно выйти на функцию
+
+    try {} catch (error) { } обработка ошибок для асинхронных запросов
+    export const updateStatus = (status) => async (dispatch) => {
+        try {
+            let data = await  profileApi.updateProfileStatus(status)
+            if(data.data.resultCode === 0){
+                dispatch(setUserStatus(status))
+            }
+        } catch (error) {
+            debugger
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------UDEMI----------------------------------------------------------------------------------------------------------
+
+     inline стили
+
+     const style = {
+        'text-align': 'center'
+     }
+
+     return (
+         <div style={style} className="App">
+           test
+             <div style={{color: '#ddd', 'font-size': '40px', fontWeight: 'bold'}}>adasda</div>
+         </div>
+     );
+
+     Если сразу нужно что то вернуть
+     const Car = () =>  <h2>Машина</h2>
+
+    const Car = () =>  (
+        <div>
+            Этот текст возвращается без ретурна
+            <h2>Машина</h2>
+        </div>
+    )
+
+    export default () => (
+        <div>
+            Этот текст возвращается без ретурна
+            <h2>Машина</h2>
+        </div>
+    )
+
+    если только 1 параметр то скобки не нужны
+    export default props => ()
+
+    Передача через children
+    <Car name={'Ford'} year={2018} >
+        <span style={{'color':'red'}}>COLOR</span>
+    </Car>
+
+    export default props => (
+        <div>
+            <p>Марка машины: {props.name}</p>
+            <strong>Год: {props.year}</strong>
+            { props.children }
+        </div>
+    )
+
+    Клик в функциональной компоненте
+
+    changeTitleHandler = () => {
+        console.log("click")
+    }
+
+    <button onClick={ this.changeTitleHandler }>Change title</button>
+
+    Так вызовится сразу
+    <button onClick={ this.changeTitleHandler() }>Change title</button>
+
+    Binde что бы функция сразу не вызывалась (более правильно)
+    <button onClick={ this.changeTitleHandler.bind(this, '! Im fine ') }>Change title</button>
+
+    Или пустая стрелочная функция
+    <Car onChangeTitle={ () => this.changeTitleHandler(cars[1].name)} />
+
+    Handle - событие в название
+    changeTitleHandler = () => {
+        console.log("click")
+    }
+
+    Изменения стейта setState
+
+    changeTitleHandler = () => {
+        const oldtitle = this.state.pageTitle
+
+        this.setState({
+            pageTitle: oldtitle+ '! Новый заголовок'
+        })
+    }
+
+    Получить значение инпута event.target.value
+    Привести строку к числу -  rightAnswerId: +event.target.value   //+ впереди
+
+    Обработка инпута onChange event.target.value
+
+    <input type="text" onChange={ this.handleInput }/>
+    handleInput = (event) => {
+        this.setState({
+            pageTitle: event.target.value
+        })
+    }
+
+    Массив map index
+
+    this.state.cars.map( (item, index) => {
+        return <Car
+            key={index}
+            name={item.name}
+            year={item.year}
+            onChangeTitle={ () => this.changeTitleHandler( item.name )}
+        />
+     })
+
+    if и тернарные выражания. if нельзя использовать в return, но можно использовать в render()
+
+    {
+        this.state.showCars ?
+
+            this.state.cars.map( (item, index) => {
+                return <Car
+                    key={index}
+                    name={item.name}
+                    year={item.year}
+                    onChangeTitle={ () => this.changeTitleHandler( item.name )}
+                />
+             })
+
+        : null
+
+    }
+
+    render() {
+
+        let carReturn = null;
+
+        if(this.state.showCars) {
+            carReturn = this.state.cars.map( (item, index) => {
+                return <Car
+                    key={index}
+                    name={item.name}
+                    year={item.year}
+                    onChangeTitle={ () => this.changeTitleHandler( item.name )}
+                />
+            })
+        }
+        return (
+            { carReturn }
+        )
+     }
+
+    Клонировать массив старый способ
+    const cars = this.state.cars.concat()
+
+    Удалить элемент из массива cars.splice(index, 1)
+
+    deleteChange = (index) => {
+        const cars = [...this.state.cars]
+        cars.splice(index, 1)
+        this.setState({
+            cars: cars
+        })
+    }
+
+    Изменения классов. Делаем массив, и выводим его в строку через  .join(' ')
+        let inputClasses = ['input']
+
+        if(props.name !== '') {
+           inputClasses = [ ...inputClasses, 'green']
+        } else {
+           inputClasses = [ ...inputClasses, 'red']
+        }
+
+        if(props.name.length > 4) {
+            inputClasses = [ ...inputClasses, 'bold']
+        }
+
+       return (
+         <input  className={inputClasses.join(' ')}/>
+       )
+
+    Конструктор. Можно стейт запихнуть в конструктор, туда придут пропсы, через rhis. Обязательно написать super(props)
+
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            pageTitle: 'Hello world',
+            showCars: false
+        }
+    }
+
+    Жизненный цикл
+
+    constructor() конструктор для компонента React вызывается до того, как будет примонтирован.
+    render() единственный обязательный методов в классовом компоненте.
+    componentDidMount() вызывается сразу после монтирования компонента (вставлено в DOM-дерево).
+    componentDidUpdate() вызывается сразу после обновления. Этот метод не вызывается при первоначальной отрисовке.
+    componentWillUnmount() вызывается непосредственно перед размонтированием и уничтожением компонента.
+
+    https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
+
+    метод для оптимизации, возвращает true или false не вызывает рендер если false
+
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        console.log('Car shouldComponentUpdate', nextContext, nextState)
+        return nextProps.name.trim() !== this.props.name.trim()
+    }
+
+    setState - ассинхронный, что бы ничего не ломалось, лучше работать с предыдущим значением
+    addCounter = () => {
+        this.setState((prevState) => {
+            return {
+                counter: prevState.counter + 1
+            }
+        })
+    }
+
+    hoc - оборачивает другую компоненту и добавляет ей новый функционал
+
+    const withClass = (Component, className) => {
+        return (props) => {
+            return (
+                <div className={className}>
+                    <Component { ...props } />
+                </div>
+            )
+        }
+    }
+    export default withClass( Car, 'car')
+
+    Валидация типов
+
+    Car.propTypes = {
+        name: PropTypes.string.isRequired,
+        year: PropTypes.number,
+        onChangeName: PropTypes.func,
+        deleteChange: PropTypes.func
+    }
+
+    Референции
+    constructor(props) {
+        super(props);
+        this.inputRef = React.createRef()
+    }
+
+    componentDidMount() {
+        if(this.props.index === 1){
+            this.inputRef.current.focus();
+        }
+    }
+    <input ref={this.inputRef}  />
+
+    Context API
+    Создаем контекст и экспортируем
+
+    export const ClickedContext = React.createContext(false)
+    this.state = {
+        clicked: false
+    }
+    <ClickedContext.Provider value={this.state.clicked}>
+        <Counter />
+    </ClickedContext.Provider>
+
+
+    counter2.js
+    import {ClickedContext} from "../App";
+    <ClickedContext.Consumer>
+        {cliked => cliked ?  <p>cliced</p> : null}
+    </ClickedContext.Consumer>
+
+    Горячие клавиши
+    w600 =  width: 600px
+    p3 = padding: 3px
+
+    setTimeout нужно обнулять чтоб не жрал ресурсы window.clearTimeout(timeout)
+    const timeout = window.setTimeout( ()=> {
+        console.log("test")
+
+        window.clearTimeout(timeout)
+    }, 1000)
+
+    Object.keys(obj) – возвращает массив ключей.
+    Метод «arr.reduce(callback[, initialValue])» используется для последовательной обработки каждого элемента массива с сохранением промежуточного результата.
+
+    const successCount = Object.keys(props.results).reduce( (total, key) => {
+        if(props.results[key] === 'success') { total++ }
+        return total
+    }, 0)
+
+    Отменить стандартное поведение формы preventDefault
+
+    <form onSubmit={this.submitHandler}></form>
+
+    submitHandler = (event) => {
+        event.preventDefault()
+    }
+
+    Object.keys(this.state.formControls) //получаем ключи от объекта
+
+      state = {
+            formControls: {
+                email: {
+                    type: 'email',
+                    label: 'Email',
+                },
+                password: {
+                    type: 'password',
+                    label: 'Пароль',
+            }
+        }
+
+        Содержит ли строка заданную подстроку?
+        isValue = value.includes('@') //TRUE
+
+    key в map <></> не работает нужно использовать целый фрагмент <React.Fragment key={controlName + index}>
+    key лучше не делать индексом, если элементы массива могут меняться. Должно быть уникальное значение
+
+    state = {
+        rightAnswerId: 1,
+        formControls:  {
+          question: creacteControl({
+              label: 'Введите вопрос',
+              errorMessage: 'Вопрос не может быть пустым'
+          }, {required: true}),
+          option1: createOptionControl(1),
+          option2: createOptionControl(2),
+          option3: createOptionControl(3),
+          option4: createOptionControl(4)
+      }
+    }
+    const {question, option1, option2, option3, option4} = this.state.formControls //деструкторизайия объекта
+
+    Если функция описана как ЕS6 то async ставится перед функцией, если нет, то перед скобками
+    async componentDidMount()  {}
+    createQuizHandler = async () => {}
+
+    Можно не писать return если сразу ставить круглые скобки
+    const Loader = props => (
+        <div className={classes.Loader}>
+            <div /><div />
+        </div>
+    )
+    <div></div> можно сократить до <div />
+
+
+    Теория редакса
+    Редакс состоит из 3х частей
+
+    //Reduser
+    //Stor
+    //Action
+
+    Редусер принимает стейт и акшен. Акшен имеет одно обязательное поле - type
+    Мы должны возвращать новый стейт из функции
+    const initialState = {
+        counter: 0
+    }
+
+    // Reduser
+    const reduser = (state = initialState, action) => {
+        return state
+    }
+    export default function rootReduser(state, action) {
+        return state
+    }
+
+    // Store
+    const store = redux.createStore(reduser)
+
+    У каждого стора есть гет стейт
+    console.log(store.getState());
+
+    Что бы запустить консольно файл.
+    Надо перейти в папку где этот файл и написать node redux (название файла)
+
+    // Action
+    const addCounter = {
+        type: 'ADD'
+    }
+
+    Акшен надо вызвать диспатчем
+
+    В редюсере используются свитч кейс
+        switch (action.type) {
+            case 'ADD':
+                return {
+                    counter: state.counter + 1
+                }
+        }
+
+    Можно передавать значения
+    store.dispatch({ type: 'ADD_NUMBER', value: 10})
+
+    Они передаются в акшен
+    case 'ADD_NUMBER':
+        return {
+            counter: state.counter + action.value
+        }
+
+    store.subscribe - обновление после каждого действия
+    store.subscribe( () => {
+        console.log('subscribe',store.getState());
+    })
+
+    Создаем стор
+    const store = createStore(rootReduser)
+
+    Нужно обернуть app Provider и передать ему стор
+  <Provider store ={store}>
+      <App title={"Hello Samuray"} />
+  </Provider>
+
+  Возвращаем компоненту через коннект
+  export default connect() (App)
+
+  mapStateToProps - берем любое значение из стейта
+  И можем использовать в пропсах
+  function mapStateToProps(state) {
+      return {
+          counter: state.counter
+      }
+  }
+
+  export default connect(mapStateToProps) (App)
+
+  Если не хотим передавать  mapStateToProps можем написать null
+  export default connect(null, mapDispatchToProps) (App)
+
+  Диспатчим экшен
+    const mapDispatchToProps = (dispatch) => {
+        return {
+            onAdd: () => dispatch({type: 'ADD'}),
+            onSub: () => dispatch({type: 'SUB'})
+        }
+    }
+
+    Передача параметров в диспатч - number нужно передать в пропсах в функцию
+
+    const mapDispatchToProps = (dispatch) => {
+        return {
+            onAdd1001: (number) => dispatch({type: 'ADDNUMBER', number: number})
+        }
+    }
+
+    Прокидывая пропсы нужно прокинуть колбек функцию и использовать замыкание
+    <button onClick={ () => this.props.onAdd1001(-20)}>- 20</button>
+
+    Объеденить все редюсеры combineReducers
+
+    export default combineReducers ({
+        counter1,
+        counter2
+    })
+
+    Сборка из разных редюсерров
+    const mapStateToProps = (state) => {
+        return {
+            counter1: state.counter1.counter2
+            counter2: state.reduser2.counter2
+        }
+    }
+
+    Mидлвар (middleware) - это предлагаемый способ расширения Redux с помощью настраиваемых функций. Mидлвар позволяет вам обернуть метод стора dispatch для пользы и дела. Ключевой особенностью мидлвара является то, что они компонуемы.
+
+    /*function logginMiddleware(store) {
+        return function (next) {
+            return function (action) {
+                const result = next(action)
+                console.log('Middleware', store.getState())
+                return result
+            }
+        }
+    }*/
+
+    const logginMiddleware = store => next => action => {
+        const result = next(action)
+        console.log('Middleware', store.getState())
+        return result
+    }
+
+    const store = createStore(rootReduser, applyMiddleware(logginMiddleware))
+
+    Акшен криеетор, это функция для создания экшенов для диспатча
+
+    export const ADD = 'ADD'
+    export const SUB = 'SUB'
+    export const ADDNUMBER = 'ADDNUMBER'
+    import {ADD, ADD2, ADDNUMBER, ADDNUMBER2, SUB, SUB2} from "./actionTypes";
+
+    export function add() {
+        return { type: ADD}
+    }
+
+    export function addnumber(number) {
+        return { type: ADDNUMBER,  }
+    }
+
+    const mapDispatchToProps = (dispatch) => {
+        return {
+            onAdd2: () => dispatch(add2()),
+            onSub2: () => dispatch(sub2()),
+            onAdd10012: number => dispatch(addnumber2(number))
+        }
+    }
+
+    Редакс санки для асинхронных запросов
+
+    Нужно импортировать санки и добавить в applyMiddleware
+    import reduxThunk from 'redux-thunk'
+    const store = createStore(rootReduser, applyMiddleware(logginMiddleware, reduxThunk))
+
+    Санка позволяет в экшен криерторе не возвращать объект, а выполнить диспатч
+    И можно задиспатчить другой экшен крие1тор
+    export function asyncAdd(number) {
+        return (dispatch) => {
+
+            setTimeout( () => {
+                dispatch(addnumber2(number))
+            }, 3000)
+
+        }
+    }
+
+    Рефакторинг
+    Во всех акшенах меняем setState на диспатч
+    dispatch(finishQuiz())
+    /* this.setState({
+       isFinish: true
+    })*/
+
+    Зануляем стейт при переходе на другую страницу
+    componentWillUnmount() {
+        this.props.retryQuiz()
+    }
+
+
+---------------------UDEMI----------------------------------------------------------------------------------------------------------
 
 Прочитать
 DDD Domain-driven design - Wikipedia
