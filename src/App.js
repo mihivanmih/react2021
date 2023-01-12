@@ -18,6 +18,7 @@ import {initializeApp} from "./redux/appReducer";
 import ProfileContainer from "./components/profile/profileContainer";
 import {withSuspense} from "./components/hoc/withSuspense";
 import Study from "./pages/study/study";
+import Chat from './pages/chat/chat.tsx'
 const DialogsConteiner = React.lazy( () => import("./components/dialogs/dialogsContainer"));
 
 class App extends Component {
@@ -56,6 +57,7 @@ class App extends Component {
                             <Route path="/messages" render={withSuspense(DialogsConteiner)}/>
                             <Route path="/users" render={() => <UsersContainer/>}/>
                             <Route path="/study" render={() => <Study/>}/>
+                            <Route path="/chat" render={() => <Chat/>}/>
                             <Route path="/login" render={() => <Login/>}/>
                             <Route path="*" render={() => <div>404</div>}/>
                         </Switch>
