@@ -1,0 +1,21 @@
+.content {
+    padding: 20px;
+}
+
+.dislogs {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.dialog_items {
+    width: 200px;
+}
+.messanges {
+}
+
+a {
+    color: #6d9cbe;
+}
+.active {
+    color: #cda869;
+}

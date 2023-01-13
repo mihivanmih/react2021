@@ -1,0 +1,17 @@
+.textBlock {
+  height: 400px;
+  overflow: auto;
+  width: 600px;
+  margin: 0 auto;
+}
+
+.img {
+  width: 30px;
+  height: 30px;
+  border-radius: 30px;
+}
+
+.textarea {
+  border: 1px solid #e00f0f;
+  margin: 10px 0;
+}
